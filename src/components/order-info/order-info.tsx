@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
@@ -26,6 +26,7 @@ export const OrderInfo: FC = () => {
     type TIngredientsWithCount = {
       [key: string]: TIngredient & { count: number };
     };
+    useEffect(() => {});
 
     const ingredientsInfo = orderData.ingredients.reduce(
       (acc: TIngredientsWithCount, item) => {
