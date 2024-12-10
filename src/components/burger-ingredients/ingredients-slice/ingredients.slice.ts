@@ -1,6 +1,6 @@
 import { TIngredient } from '@utils-types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getIngredients } from './getAIngredients';
+import { getIngredients } from './getIngredients';
 import { TPendingProps } from '../../../services/types';
 
 interface TBurgerIngredientsSlice extends TPendingProps {

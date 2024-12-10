@@ -10,7 +10,7 @@ import {
   selectBuns,
   slice
 } from '../../components/burger-ingredients/ingredients-slice/ingredients.slice';
-import { getIngredients } from '../../components/burger-ingredients/ingredients-slice/getAIngredients';
+import { getIngredients } from '../../components/burger-ingredients/ingredients-slice/getIngredients';
 
 export const ConstructorPage: FC = () => {
   const isIngredientsLoading = useSelector(slice);

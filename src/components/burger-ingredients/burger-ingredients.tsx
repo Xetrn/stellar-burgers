@@ -10,7 +10,7 @@ import {
   selectSauces
 } from './ingredients-slice/ingredients.slice';
 import { getIngredientsApi } from '@api';
-import { getIngredients } from './ingredients-slice/getAIngredients';
+import { getIngredients } from './ingredients-slice/getIngredients';
 
 export const BurgerIngredients: FC = () => {
   const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
