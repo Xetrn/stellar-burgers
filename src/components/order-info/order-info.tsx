@@ -2,22 +2,22 @@ import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
+import { selectOrder } from './order-info-slice/order-modal-slice';
+import { useDispatch, useSelector } from '../../services/store';
+import { selectAllIngredients } from '../burger-ingredients/ingredients-slice/ingredients.slice';
+import { getOrderById } from './order-info-slice/getFeedById';
+import { useLocation } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients-slice из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const dispatch = useDispatch();
+  const orderData = useSelector(selectOrder);
+  const ingredients = useSelector(selectAllIngredients);
+  const location = useLocation();
 
-  const ingredients: TIngredient[] = [];
+  useEffect(() => {
+    dispatch(getOrderById(Number(location.pathname.split('/')[2])));
+  }, [dispatch]);
 
-  /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
@@ -26,7 +26,6 @@ export const OrderInfo: FC = () => {
     type TIngredientsWithCount = {
       [key: string]: TIngredient & { count: number };
     };
-    useEffect(() => {});
 
     const ingredientsInfo = orderData.ingredients.reduce(
       (acc: TIngredientsWithCount, item) => {

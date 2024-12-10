@@ -1,6 +1,7 @@
 import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BunInitial, TBun, TConstructorItems } from '../../../services/types';
+import { createSelector } from '@reduxjs/toolkit';
+import { BunInitial, TBun } from '../../../services/types';
 
 type TConstructor = {
   bun: TBun;
@@ -15,16 +16,6 @@ const initialState: TConstructor = {
 export const ConstructorSlice = createSlice({
   name: 'constructorSlice',
   initialState,
-  selectors: {
-    selectConstructorItems: (state: TConstructor) => ({
-      bun: state.bun,
-      ingredients: state.ingredients
-    }),
-    selectBurgerConstructor: (state: TConstructor) => ({
-      bun: state.bun,
-      ingredients: state.ingredients
-    })
-  },
   reducers: {
     addIngredient: (store, action: PayloadAction<TConstructorIngredient>) => {
       if (action.payload.type === 'bun') {
@@ -36,17 +27,26 @@ export const ConstructorSlice = createSlice({
         };
         return;
       }
-      if (store.ingredients.find((item) => item._id === action.payload._id)) {
-        console.log(1);
+      if (!store.ingredients.find((item) => item._id === action.payload._id)) {
+        store.ingredients.push(action.payload);
       }
-      store.ingredients.push(action.payload);
     }
-    // confirmOrder: (store) => {
-    //
-    // }
+  },
+  selectors: {
+    selectBun: (state: TConstructor) => state.bun,
+    selectIngredients: (state: TConstructor) => state.ingredients,
+    selectConstructorItems: createSelector(
+      (state) => state.bun,
+      (state) => state.ingredients,
+      (bun, ingredients) => ({
+        bun,
+        ingredients
+      })
+    )
   }
 });
-export const { selectConstructorItems, selectBurgerConstructor } =
-  ConstructorSlice.selectors;
 
 export const { addIngredient } = ConstructorSlice.actions;
+export const { selectConstructorItems } = ConstructorSlice.selectors;
+
+export default ConstructorSlice.reducer;

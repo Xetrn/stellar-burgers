@@ -6,18 +6,17 @@ import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
 import { FC, useEffect } from 'react';
-import {
-  selectBuns,
-  slice
-} from '../../components/burger-ingredients/ingredients-slice/ingredients.slice';
+import { selectLoading } from '../../components/burger-ingredients/ingredients-slice/ingredients.slice';
 import { getIngredients } from '../../components/burger-ingredients/ingredients-slice/getIngredients';
 
 export const ConstructorPage: FC = () => {
-  const isIngredientsLoading = useSelector(slice);
+  const isIngredientsLoading = useSelector(selectLoading);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
+
   return (
     <>
       {isIngredientsLoading ? (
