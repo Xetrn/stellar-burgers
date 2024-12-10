@@ -92,7 +92,7 @@ const App = () => (
           </Route>
         </Route>
         <Route
-          path={'ingredients/:id'}
+          path={'ingredients-slice/:id'}
           element={
             <Modal title={'ingredient-popup'} onClose={() => {}}>
               <IngredientDetails />
