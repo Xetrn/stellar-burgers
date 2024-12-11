@@ -33,7 +33,8 @@ export const BurgerConstructor: FC = () => {
 
     const orderData = [
       constructorItems.bun._id,
-      ...constructorItems.ingredients.map((ingredient) => ingredient._id)
+      ...constructorItems.ingredients.map((ingredient) => ingredient._id),
+      constructorItems.bun._id
     ];
 
     dispatch(takeNewOrder(orderData));
