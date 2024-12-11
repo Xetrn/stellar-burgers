@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { startTransition } from 'react';
 import * as ReactDOMClient from 'react-dom/client';
-import App from './components/app/app';
+import App from './app/app';
+
+import './index.css';
 
 const container = document.getElementById('root') as HTMLElement;
 const root = ReactDOMClient.createRoot(container!);
