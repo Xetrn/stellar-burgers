@@ -9,12 +9,17 @@ import { IngredientsSlice } from '../components/burger-ingredients/ingredients-s
 import { ConstructorSlice } from '../pages/constructor-page/constructor-slice/constructor.slice';
 import { FeedSlice } from '../pages/feed/feed-slice/feed-slice';
 import { OrderModalSlice } from '../components/order-info/order-info-slice/order-modal-slice';
+import { OrderCardSlice } from '../components/order-card/order-card-slice/order-card-slice';
+import { OrderCard } from '@components';
+import { UserSlice } from './user-slice/user.slice';
 
 const rootReducer = {
   [IngredientsSlice.name]: IngredientsSlice.reducer,
   [ConstructorSlice.name]: ConstructorSlice.reducer,
   [FeedSlice.name]: FeedSlice.reducer,
-  [OrderModalSlice.name]: OrderModalSlice.reducer
+  [OrderModalSlice.name]: OrderModalSlice.reducer,
+  [OrderCardSlice.name]: OrderCardSlice.reducer,
+  [UserSlice.name]: UserSlice.reducer
 };
 
 const store = configureStore({

@@ -30,6 +30,10 @@ export const ConstructorSlice = createSlice({
       if (!store.ingredients.find((item) => item._id === action.payload._id)) {
         store.ingredients.push(action.payload);
       }
+    },
+    resetSelect: (store) => {
+      store.bun = BunInitial;
+      store.ingredients = [];
     }
   },
   selectors: {
@@ -46,7 +50,7 @@ export const ConstructorSlice = createSlice({
   }
 });
 
-export const { addIngredient } = ConstructorSlice.actions;
+export const { addIngredient, resetSelect } = ConstructorSlice.actions;
 export const { selectConstructorItems } = ConstructorSlice.selectors;
 
 export default ConstructorSlice.reducer;
