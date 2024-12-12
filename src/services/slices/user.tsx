@@ -75,9 +75,9 @@ const userSlice = createSlice({
                 state.error = '';
             })
             .addCase(logoutUser.fulfilled, (state) => {
-                state.isAuth = initialState.isAuth;
-                state.user = initialState.user;
-                state.error = initialState.error;
+                state.isAuth = false;
+                state.user = undefined;
+                state.error = '';
 
                 deleteCookie('accessToken');
                 localStorage.removeItem('refreshToken');
