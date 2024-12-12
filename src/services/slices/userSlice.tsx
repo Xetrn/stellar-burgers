@@ -10,36 +10,33 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../utils/cookie';
 
-export const apiGetUser = createAsyncThunk('user/getUser', getUserApi);
-export const updateUser = createAsyncThunk('user/update', updateUserApi);
 export const registerFetch = createAsyncThunk('user/register', registerUserApi);
 export const login = createAsyncThunk(
   'user/login',
   async ({ email, password }: Omit<TRegisterData, 'name'>) => {
-    const data = await loginUserApi({ email, password });
-
-    setCookie('accessToken', data.accessToken);
-    localStorage.setItem('refreshToken', data.refreshToken);
-
-    return data.user;
+    const response = await loginUserApi({ email, password });
+    setCookie('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
+    return response.user;
   }
 );
-
 export const logout = createAsyncThunk('user/logout', () => {
   logoutApi().then(() => {
-    localStorage.clear();
     deleteCookie('accessToken');
+    localStorage.clear();
   });
 });
+export const apiGetUser = createAsyncThunk('user/getUser', getUserApi);
+export const updateUser = createAsyncThunk('user/update', updateUserApi);
 
 export interface TUserState {
-  isAuthChecked: boolean;
+  isAuthVerified: boolean;
   user: TUser;
   error: string | undefined;
 }
 
 const initialState: TUserState = {
-  isAuthChecked: false,
+  isAuthVerified: false,
   user: {
     email: '',
     name: ''
@@ -52,7 +49,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    isAuthCheckedSelector: (state) => state.isAuthChecked,
+    isAuthCheckedSelector: (state) => state.isAuthVerified,
     getUserSelector: (state) => state.user,
     getNameSelector: (state) => state.user.name,
     getErrorSelector: (state) => state.error
@@ -60,53 +57,53 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(registerFetch.fulfilled, (state, action) => {
-        state.isAuthChecked = true;
+        state.isAuthVerified = true;
         state.user = action.payload.user;
-        state.error = '';
-      })
-      .addCase(registerFetch.pending, (state) => {
         state.error = '';
       })
       .addCase(registerFetch.rejected, (state, action) => {
         state.error = action.error.message;
+      })
+      .addCase(registerFetch.pending, (state) => {
+        state.error = '';
       });
     builder
       .addCase(login.fulfilled, (state, action) => {
-        state.isAuthChecked = true;
+        state.isAuthVerified = true;
         state.user = action.payload;
         state.error = '';
       })
       .addCase(login.rejected, (state, action) => {
-        state.isAuthChecked = false;
+        state.isAuthVerified = false;
         state.error = action.error.message;
       })
       .addCase(login.pending, (state) => {
-        state.isAuthChecked = false;
+        state.isAuthVerified = false;
         state.error = '';
       });
     builder
       .addCase(apiGetUser.fulfilled, (state, action) => {
-        state.isAuthChecked = true;
+        state.isAuthVerified = true;
         state.user = action.payload.user;
       })
       .addCase(apiGetUser.rejected, (state, action) => {
-        state.isAuthChecked = false;
+        state.isAuthVerified = false;
         state.error = action.error.message!;
       });
     builder
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.isAuthChecked = true;
+        state.isAuthVerified = true;
         state.user = action.payload.user;
       })
       .addCase(updateUser.rejected, (state, action) => {
-        state.isAuthChecked = false;
+        state.isAuthVerified = false;
         state.error = action.error.message!;
       })
       .addCase(updateUser.pending, (state) => {
         state.error = '';
       });
     builder.addCase(logout.fulfilled, (state) => {
-      state.isAuthChecked = false;
+      state.isAuthVerified = false;
       state.user = { email: '', name: '' };
     });
   }

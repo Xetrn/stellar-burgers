@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from '../../services/store';
 import { Preloader } from '@ui';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
   const user = useSelector(getUserSelector);
   const dispatch = useDispatch();
 

@@ -11,7 +11,6 @@ import {
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
-
 import { AppHeader, OrderInfo, IngredientDetails, Modal } from '@components';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route';
@@ -22,7 +21,6 @@ import { apiGetUser } from '../../services/slices/userSlice';
 
 const App = () => {
   const dispatch = useDispatch();
-
   const location = useLocation();
   const background = location.state?.background;
   const navigate = useNavigate();

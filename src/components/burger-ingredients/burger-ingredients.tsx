@@ -1,15 +1,18 @@
 import { useState, useRef, useEffect, FC } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useDispatch, useSelector } from '../../services/store';
+import { useSelector } from '../../services/store';
 import { TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 import { ingredientsStateSelector } from '../../services/slices/ingredientsSlice';
 import { Preloader } from '@ui';
 
 export const BurgerIngredients: FC = () => {
-  const { ingredients, loading, error } = useSelector(ingredientsStateSelector);
+  const {
+    ingredientsList: ingredients,
+    loading,
+    error
+  } = useSelector(ingredientsStateSelector);
 
-  /** TODO: взять переменные из стора */
   const buns = ingredients.filter((item) => item.type === 'bun');
   const mains = ingredients.filter((item) => item.type === 'main');
   const sauces = ingredients.filter((item) => item.type === 'sauce');
@@ -54,12 +57,9 @@ export const BurgerIngredients: FC = () => {
   if (error) {
     return <p>Что-то пошло не так...</p>;
   }
-
   if (loading) {
     return <Preloader />;
   }
-
-  // return null;
 
   return (
     <BurgerIngredientsUI

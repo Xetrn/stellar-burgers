@@ -17,18 +17,18 @@ import {
 import { isAuthCheckedSelector } from '../../services/slices/userSlice';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
+  const isAuth = useSelector(isAuthCheckedSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const constructorItems = useSelector(constructorSelector.constructorSelector);
   const orderRequest = useSelector(orderRequestSelector);
   const orderModalData = useSelector(orderModalDataSelector);
-  const isAuth = useSelector(isAuthCheckedSelector);
 
   const onOrderClick = () => {
     if (!isAuth) {
       return navigate('/login');
     }
+
     if (!constructorItems.bun || orderRequest) return;
 
     const orderData = [
@@ -36,13 +36,12 @@ export const BurgerConstructor: FC = () => {
       ...constructorItems.ingredients.map((ingredient) => ingredient._id),
       constructorItems.bun._id
     ];
-
     dispatch(takeNewOrder(orderData));
   };
+
   const closeOrderModal = () => {
     dispatch(resetOrder());
     dispatch(resetConstructor());
-    navigate('/');
   };
 
   const price = useMemo(

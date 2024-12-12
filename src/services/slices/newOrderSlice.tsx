@@ -2,10 +2,7 @@ import { orderBurgerApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
-export const takeNewOrder = createAsyncThunk(
-  'order/createOrder',
-  orderBurgerApi
-);
+export const takeNewOrder = createAsyncThunk('order/create', orderBurgerApi);
 
 export interface TNewOrderState {
   orderRequest: boolean;

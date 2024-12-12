@@ -16,8 +16,6 @@ const getOrders = (orders: TOrder[], status: string): number[] =>
     .slice(0, 20);
 
 export const FeedInfo: FC = () => {
-  /** TODO: взять переменные из стора */
-  // const orders: TOrder[] = [];
   const orders = useSelector(ordersSelector);
 
   const totalFeeds = useSelector(totalOrdersSelector);
@@ -25,7 +23,6 @@ export const FeedInfo: FC = () => {
   const feed = { total: totalFeeds, totalToday: totalToodayFeeds };
 
   const readyOrders = getOrders(orders, 'done');
-
   const pendingOrders = getOrders(orders, 'pending');
 
   return (
