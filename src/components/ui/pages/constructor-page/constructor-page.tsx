@@ -4,7 +4,8 @@ import styles from './constructor-page.module.css';
 
 import { ConstructorPageUIProps } from './type';
 import { Preloader } from '@ui';
-import { BurgerIngredients, BurgerConstructor } from '@components';
+import { BurgerIngredients } from '../../../burger-ingredients';
+import { BurgerConstructor } from '../../../burger-constructor';
 
 export const ConstructorPageUI: FC<ConstructorPageUIProps> = ({
   isIngredientsLoading

@@ -6,9 +6,10 @@ import {
 } from '@zlden/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import { BurgerConstructorUIProps } from './type';
-import { TConstructorIngredient } from '@utils-types';
-import { BurgerConstructorElement, Modal } from '@components';
+import { TOrderConstructor } from '@utils-types';
 import { Preloader, OrderDetailsUI } from '@ui';
+import { BurgerConstructorElement } from '../../burger-constructor-element';
+import { Modal } from '../../modal';
 
 export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   constructorItems,
@@ -39,7 +40,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
     <ul className={styles.elements}>
       {constructorItems.ingredients.length > 0 ? (
         constructorItems.ingredients.map(
-          (item: TConstructorIngredient, index: number) => (
+          (item: TOrderConstructor, index: number) => (
             <BurgerConstructorElement
               ingredient={item}
               index={index}
