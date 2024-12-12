@@ -2,7 +2,7 @@ import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
+  /** TODO: взять переменную из стора очевидно */
   const user = {
     name: '',
     email: ''
@@ -27,6 +27,7 @@ export const Profile: FC = () => {
     formValue.email !== user?.email ||
     !!formValue.password;
 
+  // TODO: Обновить данные вызвав фанк из слайса авторизации
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
   };
