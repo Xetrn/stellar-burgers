@@ -1,5 +1,6 @@
 import { IngredientDetailsUI } from '@ui';
 import type { Meta, StoryObj } from '@storybook/react';
+import { IngredientType } from 'src/services/slices/ingredientsSlice';
 
 const meta = {
   title: 'Example/IngredientDetails',
@@ -20,7 +21,7 @@ export const DefaultIngredientDetails: Story = {
     ingredientData: {
       _id: '111',
       name: 'Начинка',
-      type: 'main',
+      type: IngredientType.MAIN,
       proteins: 23,
       fat: 34,
       carbohydrates: 45,

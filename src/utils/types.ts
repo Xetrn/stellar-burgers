@@ -1,3 +1,5 @@
+import { IngredientType } from 'src/services/slices/ingredientsSlice';
+
 export type TIngredient = {
   _id: string;
   name: string;
@@ -37,4 +39,7 @@ export type TUser = {
   name: string;
 };
 
-export type TTabMode = 'bun' | 'sauce' | 'main';
+export type TTabMode =
+  | IngredientType.BUN
+  | IngredientType.SAUCE
+  | IngredientType.MAIN;
