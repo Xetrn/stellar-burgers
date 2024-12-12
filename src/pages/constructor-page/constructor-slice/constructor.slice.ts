@@ -1,6 +1,5 @@
-import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createSelector } from '@reduxjs/toolkit';
+import { TConstructorIngredient } from '@utils-types';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BunInitial, TBun } from '../../../services/types';
 
 type TConstructor = {
@@ -34,6 +33,20 @@ export const ConstructorSlice = createSlice({
     resetSelect: (store) => {
       store.bun = BunInitial;
       store.ingredients = [];
+    },
+    removeIngredient: (store, action: PayloadAction<string>) => {
+      store.ingredients = store.ingredients.filter(
+        (item) => item._id !== action.payload
+      );
+    },
+    moveIngredient: (
+      store,
+      action: PayloadAction<{ newIndex: number; index: number }>
+    ) => {
+      const temp = store.ingredients[action.payload.newIndex];
+      store.ingredients[action.payload.newIndex] =
+        store.ingredients[action.payload.index];
+      store.ingredients[action.payload.index] = temp;
     }
   },
   selectors: {
@@ -50,7 +63,8 @@ export const ConstructorSlice = createSlice({
   }
 });
 
-export const { addIngredient, resetSelect } = ConstructorSlice.actions;
+export const { addIngredient, resetSelect, removeIngredient, moveIngredient } =
+  ConstructorSlice.actions;
 export const { selectConstructorItems } = ConstructorSlice.selectors;
 
 export default ConstructorSlice.reducer;

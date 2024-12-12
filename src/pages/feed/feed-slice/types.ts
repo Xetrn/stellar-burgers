@@ -5,11 +5,13 @@ export type TFeed = {
   orders: TOrder[];
 
   isLoading: boolean;
-  error: string;
+  error: string | undefined;
   feed: {
     total: number;
     totalToday: number;
   };
+  userOrders: TOrder[];
+  loadingUser: boolean;
 };
 export const FeedInitial = {
   orders: [],

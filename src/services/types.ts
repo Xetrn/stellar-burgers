@@ -1,7 +1,7 @@
 import { TConstructorIngredient, TIngredient } from '@utils-types';
 
 export type TPendingProps = {
-  error: string | null;
+  error: string | null | undefined;
   loading: boolean;
 };
 

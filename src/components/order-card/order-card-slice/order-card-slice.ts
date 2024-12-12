@@ -38,11 +38,13 @@ export const OrderCardSlice = createSlice({
     builder
       .addCase(postOrder.pending, (state, action) => {
         state.orderRequest = true;
+        console.log(1);
       })
       .addCase(postOrder.fulfilled, (state, action) => {
         state.orderModalData = action.payload.order;
         state.orderId = action.payload.order.number;
         state.orderRequest = false;
+        console.log(2);
       })
       .addCase(postOrder.rejected, (state, action) => {
         state.orderRequest = false;

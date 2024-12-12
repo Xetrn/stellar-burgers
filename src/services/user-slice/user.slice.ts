@@ -1,9 +1,17 @@
 import { TUser } from '@utils-types';
 import { createSlice } from '@reduxjs/toolkit';
-import { getUser, loginUser, refreshUserToken, registerUser } from './actions';
+import {
+  getUser,
+  loginUser,
+  logout,
+  refreshUserToken,
+  registerUser,
+  updateUserData
+} from './actions';
 import { setCookie } from '../../utils/cookie';
+import { TPendingProps } from '../types';
 
-interface IUserState {
+interface IUserState extends TPendingProps {
   isAuthChecked: boolean;
   isAuthenticated: boolean;
   data: TUser;
@@ -16,7 +24,9 @@ const initialState: IUserState = {
   isAuthenticated: false,
   data: { email: '', name: '' },
   loginUserError: null,
-  loginUserRequest: false
+  loginUserRequest: false,
+  loading: false,
+  error: null
 };
 
 export const UserSlice = createSlice({
@@ -27,7 +37,8 @@ export const UserSlice = createSlice({
     selectIsAuthenticated: (store) => store.isAuthenticated,
     selectIsAuthChecked: (store) => store.isAuthChecked,
     selectLoginUserError: (store) => store.loginUserError,
-    selectLoginUserRequest: (store) => store.loginUserRequest
+    selectLoginUserRequest: (store) => store.loginUserRequest,
+    selectError: (store) => store.error
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -78,8 +89,6 @@ export const UserSlice = createSlice({
         state.isAuthenticated = false;
         state.isAuthChecked = true;
         state.loginUserRequest = false;
-        state.loginUserError =
-          action.error.message || 'Не удалось получить данные пользователя';
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.data = action.payload.user;
@@ -101,7 +110,26 @@ export const UserSlice = createSlice({
         if (action.payload) {
           localStorage.setItem('refreshToken', action.payload.refreshToken);
         }
-      });
+      })
+      .addCase(updateUserData.pending, (state, action) => {})
+
+      .addCase(updateUserData.fulfilled, (state, action) => {
+        state.data = action.payload.user;
+      })
+      .addCase(updateUserData.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+
+      .addCase(logout.pending, (state, action) => {})
+
+      .addCase(logout.fulfilled, (state, action) => {
+        state.data = { email: '', name: '' };
+        state.isAuthenticated = false;
+        state.isAuthChecked = true;
+        setCookie('accessToken', '');
+        localStorage.removeItem('refreshToken');
+      })
+      .addCase(logout.rejected, (state, action) => {});
   }
 });
 

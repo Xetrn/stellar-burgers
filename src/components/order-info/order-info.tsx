@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import { selectAllIngredients } from '../burger-ingredients/ingredients-slice/ingredients.slice';
 import { getOrderById } from './order-info-slice/getFeedById';
 import { useLocation } from 'react-router-dom';
+import { getLastUrlPath } from '../../utils/utils';
 
 export const OrderInfo: FC = () => {
   const dispatch = useDispatch();
@@ -15,8 +16,8 @@ export const OrderInfo: FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(getOrderById(Number(location.pathname.split('/')[2])));
-  }, [dispatch]);
+    dispatch(getOrderById(Number(getLastUrlPath(location.pathname))));
+  }, []);
 
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
@@ -59,7 +60,7 @@ export const OrderInfo: FC = () => {
     };
   }, [orderData, ingredients]);
 
-  if (!orderInfo) {
+  if (!orderInfo?._id) {
     return <Preloader />;
   }
 

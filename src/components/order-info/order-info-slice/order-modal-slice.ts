@@ -27,7 +27,21 @@ export const OrderModalSlice = createSlice({
     selectLoading: (state) => state.loading,
     selectError: (state) => state.error
   },
-  reducers: {},
+  reducers: {
+    resetModal: (state) => {
+      state.order = {
+        _id: '',
+        status: '',
+        name: '',
+        createdAt: '',
+        updatedAt: '',
+        number: 0,
+        ingredients: []
+      };
+      state.error = null;
+      state.loading = false;
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getOrderById.pending, (state) => {
       state.loading = true;
@@ -45,3 +59,4 @@ export const OrderModalSlice = createSlice({
 
 export const { selectError, selectLoading, selectOrder } =
   OrderModalSlice.selectors;
+export const { resetModal } = OrderModalSlice.actions;

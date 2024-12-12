@@ -6,7 +6,8 @@ import {
   refreshToken,
   registerUserApi,
   TLoginData,
-  TRegisterData
+  TRegisterData,
+  updateUserApi
 } from '@api';
 import { create } from 'react-test-renderer';
 
@@ -28,4 +29,9 @@ export const loginUser = createAsyncThunk(
 export const refreshUserToken = createAsyncThunk(
   'user/refreshToken',
   async () => refreshToken()
+);
+
+export const updateUserData = createAsyncThunk(
+  'user/updateUserData',
+  async (data: Partial<TRegisterData>) => updateUserApi(data)
 );

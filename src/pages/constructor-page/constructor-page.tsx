@@ -15,9 +15,11 @@ export const ConstructorPage: FC = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUser());
-    dispatch(getIngredients());
-  }, [dispatch]);
+    if (!isIngredientsLoading) {
+      dispatch(getUser());
+      dispatch(getIngredients());
+    }
+  }, []);
 
   return (
     <>

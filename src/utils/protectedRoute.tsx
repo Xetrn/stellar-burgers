@@ -21,14 +21,7 @@ export const ProtectedRoute = ({
 }: ProtectedRouteProps) => {
   const isAuthChecked = useSelector(selectIsAuthChecked);
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const dispatch = useDispatch();
   const location = useLocation();
-
-  useEffect(() => {
-    if (!isAuthChecked) {
-      dispatch(getUser());
-    }
-  }, [isAuthChecked, dispatch]);
 
   if (!isAuthChecked) {
     return <Preloader />;
