@@ -1,3 +1,5 @@
+import { TFeed } from '../../../pages/feed/feed-slice/types';
+
 export type FeedInfoUIProps = {
   feed: any;
   readyOrders: number[];

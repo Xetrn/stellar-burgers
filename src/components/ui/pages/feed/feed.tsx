@@ -22,6 +22,7 @@ export const FeedUI: FC<FeedUIProps> = memo(({ orders, handleGetFeeds }) => (
       <div className={styles.columnOrders}>
         <OrdersList orders={orders} />
       </div>
+      a
       <div className={styles.columnInfo}>
         <FeedInfo />
       </div>
