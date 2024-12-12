@@ -30,7 +30,7 @@ const initialState: TUserState = {
     email: ''
   },
   error: null,
-  loading: false
+  loading: true
 };
 
 export const userSlice = createSlice({
@@ -111,16 +111,21 @@ export const userSlice = createSlice({
         state.error = null;
         state.loading = true;
       });
-    builder.addCase(logout.fulfilled, (state) => {
-      state.isAuthorized = false;
-      state.user = {
-        name: '',
-        email: ''
-      };
-      state.error = null;
-      state.loading = false;
-      deleteTokens();
-    });
+    builder
+      .addCase(logout.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.isAuthorized = false;
+        state.user = {
+          name: '',
+          email: ''
+        };
+        state.error = null;
+        state.loading = false;
+        deleteTokens();
+      });
   }
 });
 
