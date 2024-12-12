@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import {
   Button,
   ConstructorElement,
@@ -19,14 +19,14 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   closeOrderModal
 }) => (
   <section className={styles.burger_constructor}>
-    {constructorItems.bun ? (
+    {constructorItems.constructorItems.bun ? (
       <div className={`${styles.element} mb-4 mr-4`}>
         <ConstructorElement
           type='top'
           isLocked
-          text={`${constructorItems.bun.name} (верх)`}
-          price={constructorItems.bun.price}
-          thumbnail={constructorItems.bun.image}
+          text={`${constructorItems.constructorItems.bun.name} (верх)`}
+          price={constructorItems.constructorItems.bun.price}
+          thumbnail={constructorItems.constructorItems.bun.image}
         />
       </div>
     ) : (
@@ -37,13 +37,13 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
       </div>
     )}
     <ul className={styles.elements}>
-      {constructorItems.ingredients.length > 0 ? (
-        constructorItems.ingredients.map(
+      {constructorItems.constructorItems.ingredients.length > 0 ? (
+        constructorItems.constructorItems.ingredients.map(
           (item: TConstructorIngredient, index: number) => (
             <BurgerConstructorElement
               ingredient={item}
               index={index}
-              totalItems={constructorItems.ingredients.length}
+              totalItems={constructorItems.constructorItems.ingredients.length}
               key={item.id}
             />
           )
@@ -56,14 +56,14 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         </div>
       )}
     </ul>
-    {constructorItems.bun ? (
+    {constructorItems.constructorItems.bun ? (
       <div className={`${styles.element} mt-4 mr-4`}>
         <ConstructorElement
           type='bottom'
           isLocked
-          text={`${constructorItems.bun.name} (низ)`}
-          price={constructorItems.bun.price}
-          thumbnail={constructorItems.bun.image}
+          text={`${constructorItems.constructorItems.bun.name} (низ)`}
+          price={constructorItems.constructorItems.bun.price}
+          thumbnail={constructorItems.constructorItems.bun.image}
         />
       </div>
     ) : (
