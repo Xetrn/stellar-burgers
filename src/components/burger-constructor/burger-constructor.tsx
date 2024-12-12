@@ -14,12 +14,9 @@ export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
-  //const loading = useSelector(selectIsLoading);
   const constructorItems = useSelector(getBurgerConstructorState);
 
   const orderRequest = useSelector(selectIsLoading);
-
-  //const orderModalData = null;
 
   const [orderModalData, setOrderModalData] = useState<TOrder | null>(null);
 

@@ -11,7 +11,7 @@ import {
   } from '@api';
   import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
   import { TUser } from '@utils-types';
-  import { deleteCookie, setCookie } from '../../utils/cookie';
+  import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
   
   type TUserState = {
     isAuth: boolean;
@@ -22,12 +22,8 @@ import {
   
   export const initialState: TUserState = {
     isAuth: false,
-    /*user: {
-      email: '',
-      name: ''
-    }, */
     user: null,
-    isLoading: true,
+    isLoading: !!getCookie('accessToken'),
     error: null
   };
   
