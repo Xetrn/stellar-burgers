@@ -7,12 +7,13 @@ import {
   fetchOrder,
   getIngredients,
   getOrderModalData,
-  getOrderRequest
+  getOrderRequest,
+  resetOrder
 } from '@slices';
 import { useParams } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { number } = useParams<{ number: string }>();
   const dispatch = useDispatch();
 
   const orderData = useSelector(getOrderModalData);
@@ -20,10 +21,14 @@ export const OrderInfo: FC = () => {
   const ingredients: TIngredient[] = useSelector(getIngredients);
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchOrder(Number(id)));
+    if (number) {
+      dispatch(fetchOrder(Number(number)));
     }
-  }, [id]);
+
+    return () => {
+      dispatch(resetOrder());
+    };
+  }, [number]);
 
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;

@@ -20,6 +20,7 @@ type TUserState = {
   isAuthorized: boolean;
   user: TUser;
   error: string | undefined | null;
+  loading: boolean;
 };
 
 const initialState: TUserState = {
@@ -28,7 +29,8 @@ const initialState: TUserState = {
     name: '',
     email: ''
   },
-  error: null
+  error: null,
+  loading: false
 };
 
 export const userSlice = createSlice({
@@ -37,34 +39,41 @@ export const userSlice = createSlice({
   reducers: {},
   selectors: {
     getIsAuthorized: (state) => state.isAuthorized,
-    getUser: (state) => state.user
+    getUser: (state) => state.user,
+    getAuthError: (state) => state.error,
+    getAuthLoading: (state) => state.loading
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.isAuthorized = true;
-        state.isAuthorized = true;
         state.user = action.payload.user;
         state.error = null;
+        state.loading = false;
       })
       .addCase(fetchUser.rejected, (state, action) => {
         state.isAuthorized = false;
         state.error = action.error.message;
+        state.loading = false;
       })
       .addCase(fetchUser.pending, (state) => {
         state.error = null;
+        state.loading = true;
       });
     builder
       .addCase(updateUser.fulfilled, (state, action) => {
         state.isAuthorized = true;
         state.user = action.payload.user;
         state.error = null;
+        state.loading = false;
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.error = action.error.message;
+        state.loading = false;
       })
       .addCase(updateUser.pending, (state) => {
         state.error = null;
+        state.loading = true;
       });
     builder
       .addCase(register.fulfilled, (state, action) => {
@@ -72,14 +81,17 @@ export const userSlice = createSlice({
         state.isAuthorized = true;
         state.user = user;
         state.error = null;
+        state.loading = false;
         saveTokens({ accessToken, refreshToken });
       })
       .addCase(register.rejected, (state, action) => {
         state.isAuthorized = false;
         state.error = action.error.message;
+        state.loading = false;
       })
       .addCase(register.pending, (state) => {
         state.error = null;
+        state.loading = true;
       });
     builder
       .addCase(login.fulfilled, (state, action) => {
@@ -87,14 +99,17 @@ export const userSlice = createSlice({
         state.isAuthorized = true;
         state.user = user;
         state.error = null;
+        state.loading = false;
         saveTokens({ accessToken, refreshToken });
       })
       .addCase(login.rejected, (state, action) => {
         state.isAuthorized = false;
         state.error = action.error.message;
+        state.loading = false;
       })
       .addCase(login.pending, (state) => {
         state.error = null;
+        state.loading = true;
       });
     builder.addCase(logout.fulfilled, (state) => {
       state.isAuthorized = false;
@@ -103,9 +118,11 @@ export const userSlice = createSlice({
         email: ''
       };
       state.error = null;
+      state.loading = false;
       deleteTokens();
     });
   }
 });
 
-export const { getIsAuthorized, getUser } = userSlice.selectors;
+export const { getIsAuthorized, getUser, getAuthError, getAuthLoading } =
+  userSlice.selectors;

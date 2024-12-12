@@ -13,14 +13,16 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { fetchIngredients, fetchUser } from '@slices';
 import { ProtectedRoute } from '../protected-route';
 
 const App = () => {
-  const backgroundLocation = useLocation().state?.background;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const backgroundLocation = location.state?.background;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,7 +60,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title={''} onClose={() => history.back()}>
+              <Modal title={'ewewe'} onClose={() => navigate(-1)}>
                 <IngredientDetails />
               </Modal>
             }
@@ -66,7 +68,7 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title={''} onClose={() => history.back()}>
+              <Modal title={''} onClose={() => navigate(-1)}>
                 <OrderInfo />
               </Modal>
             }
@@ -76,7 +78,7 @@ const App = () => {
             <Route
               path='/profile/orders/:number'
               element={
-                <Modal title={''} onClose={() => history.back()}>
+                <Modal title={''} onClose={() => navigate(-1)}>
                   <OrderInfo />
                 </Modal>
               }
