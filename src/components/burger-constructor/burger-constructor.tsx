@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'src/services/store';
 
 export const BurgerConstructor: FC = () => {
-  const constructor = useSelector((state: RootState) => state.constructor);
+  const constructorItems = useSelector((state: RootState) => state.constructor);
 
-  const constructorItems = constructor.constructorItems;
-  const orderRequest = constructor.orderRequest;
-  const orderModalData = constructor.orderModalData;
+  const orderRequest = false;
+
+  const orderModalData = null;
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;

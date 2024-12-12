@@ -1,15 +1,26 @@
 import { configureStore } from '@reduxjs/toolkit';
-import IngredientsReducer from './slices/ingredients.slice';
-import FeedReducer from './slices/feed.slice';
-import constructorReducer from './slices/constructor.slice';
+import { useDispatch } from 'react-redux';
+import {
+  ConstructorReducer,
+  FeedReducer,
+  IngredientReducer,
+  UserReducer
+} from '@slices';
 
 export const store = configureStore({
   reducer: {
-    ingredients: IngredientsReducer,
+    ingredients: IngredientReducer,
     feed: FeedReducer,
-    constructor: constructorReducer
-  }
+    user: UserReducer,
+    constructor: ConstructorReducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: true
+    })
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch: () => AppDispatch = useDispatch;

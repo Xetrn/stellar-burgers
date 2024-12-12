@@ -15,7 +15,7 @@ const initialState: IFeedSlice = {
   isLoading: false
 };
 
-const feedSlice = createSlice({
+export const feedSlice = createSlice({
   name: 'feed',
   initialState,
   reducers: {
@@ -32,4 +32,4 @@ const feedSlice = createSlice({
 });
 
 export const { setFeed, setFeedLoading } = feedSlice.actions;
-export default feedSlice.reducer;
+export const FeedReducer = feedSlice.reducer;

@@ -2,6 +2,7 @@ import { IngredientDetails, Modal, OrderInfo } from '@components';
 import { URLS } from './app.urls';
 import { IRoute } from './types';
 import React, { lazy } from 'react';
+import { ProfileOrders } from '@pages';
 
 const ConstructorPage = lazy(() =>
   import('@pages').then((m) => ({
@@ -45,11 +46,11 @@ const Profile = lazy(() =>
   }))
 );
 
-const ProfileOrders = lazy(() =>
-  import('@pages').then((m) => ({
-    default: m.ProfileOrders
-  }))
-);
+// const ProfileOrders = lazy(() =>
+//   import('@pages').then((m) => ({
+//     default: m.ProfileOrders
+//   }))
+// );
 
 export const PublicRoutes: IRoute[] = [
   {
@@ -91,17 +92,22 @@ export const PublicRoutes: IRoute[] = [
 export const PrivateRoutes: IRoute[] = [
   {
     path: URLS.PROFILE,
-    element: React.createElement(Profile),
+    element: React.createElement(Profile)
+  },
+  {
+    path: URLS.PROFILE_ORDERS,
+    element: React.createElement(ProfileOrders),
     children: [
       {
         path: URLS.PROFILE_ORDERS,
-        element: React.createElement(ProfileOrders),
-        children: [
+        element: React.createElement(
+          Modal,
           {
-            path: URLS.MODAL_ORDER_DETAILS,
-            element: React.createElement(ProfileOrders)
-          }
-        ]
+            title: 'Информация о заказе',
+            onClose: () => window.history.back()
+          },
+          React.createElement(OrderInfo)
+        )
       }
     ]
   }

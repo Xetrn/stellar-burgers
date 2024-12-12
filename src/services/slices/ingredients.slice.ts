@@ -11,21 +11,20 @@ const initialState: IIngredientsState = {
   isLoading: false
 };
 
-const ingredientsSlice = createSlice({
+export const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {
     setIngredients(state, action: PayloadAction<TIngredient[]>) {
       state.ingredients = action.payload;
-      return state;
     },
     setIngredientsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
-      return state;
     }
   }
 });
 
 export const { setIngredients, setIngredientsLoading } =
   ingredientsSlice.actions;
-export default ingredientsSlice.reducer;
+
+export const IngredientReducer = ingredientsSlice.reducer;
