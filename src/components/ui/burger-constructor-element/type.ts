@@ -1,7 +1,7 @@
-import { TConstructorIngredient } from '@utils-types';
+import { TOrderConstructor } from '@utils-types';
 
 export type BurgerConstructorElementUIProps = {
-  ingredient: TConstructorIngredient;
+  ingredient: TOrderConstructor;
   index: number;
   totalItems: number;
   handleMoveUp: () => void;
