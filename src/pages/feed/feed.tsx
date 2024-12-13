@@ -15,7 +15,6 @@ export const Feed: FC = () => {
   const fetchFeed = async () => {
     dispatch(setFeedLoading(true));
     const feed = await getFeedsApi();
-    console.log(feed);
     dispatch(setFeed(feed));
     dispatch(setFeedLoading(false));
   };

@@ -7,12 +7,12 @@ import {
   UserReducer
 } from '@slices';
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     ingredients: IngredientReducer,
     feed: FeedReducer,
     user: UserReducer,
-    constructor: ConstructorReducer
+    ConstructorReducer //название constructor: всё ломает)))
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -24,3 +24,4 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
+export default store;

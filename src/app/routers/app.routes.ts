@@ -96,20 +96,19 @@ export const PrivateRoutes: IRoute[] = [
   },
   {
     path: URLS.PROFILE_ORDERS,
-    element: React.createElement(ProfileOrders),
-    children: [
+    element: React.createElement(ProfileOrders)
+  },
+  {
+    //почему-то тут child роут не работает
+    path: URLS.MODAL_ORDER_DETAILS,
+    element: React.createElement(
+      Modal,
       {
-        path: URLS.PROFILE_ORDERS,
-        element: React.createElement(
-          Modal,
-          {
-            title: 'Информация о заказе',
-            onClose: () => window.history.back()
-          },
-          React.createElement(OrderInfo)
-        )
-      }
-    ]
+        onClose: () => window.history.back(),
+        title: 'Информация о заказе'
+      },
+      React.createElement(OrderInfo)
+    )
   }
 ];
 

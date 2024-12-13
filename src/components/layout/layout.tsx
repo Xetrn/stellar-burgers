@@ -9,11 +9,9 @@ interface ILayoutProps {
 }
 
 export const Layout = ({ children }: ILayoutProps) => (
-  <Suspense fallback={<Preloader />}>
-    <div className={styles.app}>
-      <AppHeader />
-      {children}
-      <Outlet />
-    </div>
-  </Suspense>
+  <div className={styles.app}>
+    <AppHeader />
+    {children}
+    <Outlet />
+  </div>
 );
