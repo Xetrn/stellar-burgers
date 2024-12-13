@@ -50,6 +50,12 @@ const ConstructorSlice = createSlice({
     },
     setOrderModalData(state, action: PayloadAction<TOrder>) {
       state.orderModalData = action.payload;
+    },
+    updateConstructorIngredients(
+      state,
+      action: PayloadAction<TConstructorIngredient[]>
+    ) {
+      state.constructorItems.ingredients = action.payload;
     }
   }
 });
@@ -57,9 +63,11 @@ const ConstructorSlice = createSlice({
 export const {
   setConstructorBun,
   setConstructorIngredients,
+  deleteConstructorIngredient,
   clearConstructor,
   setOrderRequest,
-  setOrderModalData
+  setOrderModalData,
+  updateConstructorIngredients
 } = ConstructorSlice.actions;
 
 export const ConstructorReducer = ConstructorSlice.reducer;
