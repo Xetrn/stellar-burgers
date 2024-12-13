@@ -18,7 +18,7 @@ export const ModalRoutes = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title={'ewewe'} onClose={() => navigate(-1)}>
+              <Modal title={'Детали ингредиента'} onClose={() => navigate(-1)}>
                 <IngredientDetails />
               </Modal>
             }
@@ -26,7 +26,7 @@ export const ModalRoutes = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title={''} onClose={() => navigate(-1)}>
+              <Modal title={'Детали заказа'} onClose={() => navigate(-1)}>
                 <OrderInfo />
               </Modal>
             }
@@ -36,7 +36,7 @@ export const ModalRoutes = () => {
             <Route
               path='/profile/orders/:number'
               element={
-                <Modal title={''} onClose={() => navigate(-1)}>
+                <Modal title={'Детали заказа'} onClose={() => navigate(-1)}>
                   <OrderInfo />
                 </Modal>
               }
