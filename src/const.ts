@@ -6,7 +6,12 @@ export enum AppRoute {
   ForgotPassword = '/forgot-password',
   ResetPassword = '/reset-password',
   Profile = '/profile',
-  ProfileOrders = '/profile/orders',
   IngredientsDetails = '/ingredients',
   NotFound404 = '*'
+}
+
+export enum IngredientType {
+  BUN = 'bun',
+  MAIN = 'main',
+  SAUCE = 'sauce'
 }
