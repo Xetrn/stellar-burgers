@@ -1,16 +1,21 @@
 import { useState, useRef, useEffect, FC } from 'react';
 import { useInView } from 'react-intersection-observer';
-
-import { TTabMode } from '@utils-types';
+import {
+  IngredientType,
+  selectBuns,
+  selectMains,
+  selectSauces
+} from '../../services/slices/ingredientsSlice';
+import { useSelector } from '../../services/store';
+import { TIngredient, TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 
 export const BurgerIngredients: FC = () => {
-  /** TODO: взять переменные из стора */
-  const buns = [];
-  const mains = [];
-  const sauces = [];
+  const buns = useSelector(selectBuns);
+  const mains = useSelector(selectMains);
+  const sauces = useSelector(selectSauces);
 
-  const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
+  const [currentTab, setCurrentTab] = useState<TTabMode>(IngredientType.BUN);
   const titleBunRef = useRef<HTMLHeadingElement>(null);
   const titleMainRef = useRef<HTMLHeadingElement>(null);
   const titleSaucesRef = useRef<HTMLHeadingElement>(null);
@@ -29,25 +34,23 @@ export const BurgerIngredients: FC = () => {
 
   useEffect(() => {
     if (inViewBuns) {
-      setCurrentTab('bun');
+      setCurrentTab(IngredientType.BUN);
     } else if (inViewSauces) {
-      setCurrentTab('sauce');
+      setCurrentTab(IngredientType.SAUCE);
     } else if (inViewFilling) {
-      setCurrentTab('main');
+      setCurrentTab(IngredientType.MAIN);
     }
   }, [inViewBuns, inViewFilling, inViewSauces]);
 
   const onTabClick = (tab: string) => {
     setCurrentTab(tab as TTabMode);
-    if (tab === 'bun')
+    if (tab === IngredientType.BUN)
       titleBunRef.current?.scrollIntoView({ behavior: 'smooth' });
-    if (tab === 'main')
+    if (tab === IngredientType.MAIN)
       titleMainRef.current?.scrollIntoView({ behavior: 'smooth' });
-    if (tab === 'sauce')
+    if (tab === IngredientType.SAUCE)
       titleSaucesRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  return null;
 
   return (
     <BurgerIngredientsUI
