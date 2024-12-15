@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { ingredientsSlice } from './slices/ingredients-slice';
+import { constructorSlice } from './slices/constructor-slice';
 import { userSlice } from './slices/user-slice';
 
 import {
@@ -10,6 +11,7 @@ import {
 
 const rootReducer = combineReducers({
   [ingredientsSlice.name]: ingredientsSlice.reducer,
+  [constructorSlice.name]: constructorSlice.reducer,
   [userSlice.name]: userSlice.reducer
 });
 
