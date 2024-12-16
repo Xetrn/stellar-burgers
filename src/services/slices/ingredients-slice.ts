@@ -3,16 +3,16 @@ import { getIngredientsApi } from '@api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IngredientType } from '../../const';
 
-interface TIngredientState {
+interface TIngredientsState {
   ingredientsData: Array<TIngredient>;
   ingredientsError: string | null | undefined;
-  isIngredientsLoading: boolean;
+  ingredientsRequest: boolean;
 }
 
-const initialState: TIngredientState = {
+const initialState: TIngredientsState = {
   ingredientsData: [],
   ingredientsError: null,
-  isIngredientsLoading: false
+  ingredientsRequest: false
 };
 
 export const fetchIngredients = createAsyncThunk(
@@ -41,21 +41,21 @@ export const ingredientsSlice = createSlice({
         (ingredient) => ingredient.type === IngredientType.SAUCE
       ),
     getIngredientsError: (store) => store.ingredientsError,
-    getIngredientsLoading: (store) => store.isIngredientsLoading
+    getIngredientsRequest: (store) => store.ingredientsRequest
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, (state) => {
-        state.isIngredientsLoading = true;
+        state.ingredientsRequest = true;
         state.ingredientsError = null;
       })
       .addCase(fetchIngredients.rejected, (state, action) => {
-        state.isIngredientsLoading = false;
+        state.ingredientsRequest = false;
         state.ingredientsError = action.error.message;
       })
       .addCase(fetchIngredients.fulfilled, (state, action) => {
         state.ingredientsData = action.payload;
-        state.isIngredientsLoading = false;
+        state.ingredientsRequest = false;
       });
   }
 });
@@ -67,5 +67,5 @@ export const {
   getMainIngredientsData,
   getSauceIngredientsData,
   getIngredientsError,
-  getIngredientsLoading
+  getIngredientsRequest
 } = ingredientsSlice.selectors;

@@ -6,7 +6,6 @@ export enum AppRoute {
   ForgotPassword = '/forgot-password',
   ResetPassword = '/reset-password',
   Profile = '/profile',
-  IngredientsDetails = '/ingredients',
   NotFound404 = '*'
 }
 

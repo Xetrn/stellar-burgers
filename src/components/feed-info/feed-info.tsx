@@ -5,8 +5,8 @@ import { FeedInfoUI } from '../ui/feed-info';
 
 import { useSelector } from '../../services/store';
 import {
-  getFeedsData,
-  getFeedsOrdersData
+  getFeedData,
+  getFeedOrdersData
 } from '../../services/slices/feed-slice';
 
 const getOrders = (orders: TOrder[], status: string): number[] =>
@@ -16,8 +16,8 @@ const getOrders = (orders: TOrder[], status: string): number[] =>
     .slice(0, 20);
 
 export const FeedInfo: FC = () => {
-  const orders = useSelector(getFeedsOrdersData);
-  const feed = useSelector(getFeedsData);
+  const orders = useSelector(getFeedOrdersData);
+  const feed = useSelector(getFeedData);
 
   const readyOrders = getOrders(orders, 'done');
 

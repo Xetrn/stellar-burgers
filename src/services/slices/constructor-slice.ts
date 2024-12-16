@@ -45,14 +45,19 @@ export const constructorSlice = createSlice({
         state.ingredients[index] = state.ingredients[index + 1];
         state.ingredients[index + 1] = ingredient;
       }
-    }
+    },
+    clearConstructor: () => initialState
   },
   selectors: {
     getConstructorItems: (state: TConstructorState) => state
   }
 });
 
-export const { addIngredient, removeIngredient, moveIngredient } =
-  constructorSlice.actions;
+export const {
+  addIngredient,
+  removeIngredient,
+  moveIngredient,
+  clearConstructor
+} = constructorSlice.actions;
 
 export const { getConstructorItems } = constructorSlice.selectors;

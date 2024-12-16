@@ -2,58 +2,58 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getFeedsApi } from '@api';
 import { TOrdersData } from '@utils-types';
 
-interface TIngredientState {
-  feedsData: TOrdersData;
-  feedsError: string | null | undefined;
-  isFeedsLoading: boolean;
+interface TFeedState {
+  feedData: TOrdersData;
+  feedError: string | null | undefined;
+  feedRequest: boolean;
 }
 
-const initialState: TIngredientState = {
-  feedsData: {
+const initialState: TFeedState = {
+  feedData: {
     orders: [],
     total: 0,
     totalToday: 0
   },
-  feedsError: null,
-  isFeedsLoading: false
+  feedError: null,
+  feedRequest: false
 };
 
 export const fetchFeeds = createAsyncThunk('feeds/fetchFeeds', getFeedsApi);
 
-export const feedsSlice = createSlice({
+export const feedSlice = createSlice({
   name: 'feeds',
   initialState,
   reducers: {},
   selectors: {
-    getFeedsData: (store) => store.feedsData,
-    getFeedsOrdersData: (store) => store.feedsData.orders,
-    getFeedsTotalData: (store) => store.feedsData.total,
-    getFeedsTotalTodayData: (store) => store.feedsData.totalToday,
-    getFeedsError: (store) => store.feedsError,
-    getFeedsLoading: (store) => store.isFeedsLoading
+    getFeedData: (store) => store.feedData,
+    getFeedOrdersData: (store) => store.feedData.orders,
+    getFeedTotalData: (store) => store.feedData.total,
+    getFeedTotalTodayData: (store) => store.feedData.totalToday,
+    getFeedError: (store) => store.feedError,
+    getFeedRequest: (store) => store.feedRequest
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchFeeds.pending, (state) => {
-        state.isFeedsLoading = true;
-        state.feedsError = null;
+        state.feedRequest = true;
+        state.feedError = null;
       })
       .addCase(fetchFeeds.rejected, (state, action) => {
-        state.isFeedsLoading = false;
-        state.feedsError = action.error.message;
+        state.feedRequest = false;
+        state.feedError = action.error.message;
       })
       .addCase(fetchFeeds.fulfilled, (state, action) => {
-        state.feedsData = action.payload;
-        state.isFeedsLoading = false;
+        state.feedData = action.payload;
+        state.feedRequest = false;
       });
   }
 });
 
 export const {
-  getFeedsData,
-  getFeedsOrdersData,
-  getFeedsTotalData,
-  getFeedsTotalTodayData,
-  getFeedsError,
-  getFeedsLoading
-} = feedsSlice.selectors;
+  getFeedData,
+  getFeedOrdersData,
+  getFeedTotalData,
+  getFeedTotalTodayData,
+  getFeedError,
+  getFeedRequest
+} = feedSlice.selectors;

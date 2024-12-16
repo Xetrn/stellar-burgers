@@ -14,7 +14,7 @@ interface TUserState {
   isAuthenticated: boolean;
   userData: TUser | null;
   userError: string | null | undefined;
-  IsUserDataLoading: boolean;
+  userRequest: boolean;
 }
 
 const initialState: TUserState = {
@@ -22,7 +22,7 @@ const initialState: TUserState = {
   isAuthenticated: false,
   userData: null,
   userError: null,
-  IsUserDataLoading: false
+  userRequest: false
 };
 
 export const getUser = createAsyncThunk('user/getUser', getUserApi);
@@ -42,17 +42,18 @@ export const userSlice = createSlice({
     getIsAuthChecked: (store) => store.isAuthChecked,
     getIsAuthenticated: (store) => store.isAuthenticated,
     getUserData: (store) => store.userData,
+    getUserName: (store) => store.userData?.name,
     getUserError: (store) => store.userError,
-    getUserLoading: (store) => store.IsUserDataLoading
+    getUserRequest: (store) => store.userRequest
   },
   extraReducers: (builder) => {
     builder
       .addCase(getUser.pending, (state) => {
-        state.IsUserDataLoading = true;
+        state.userRequest = true;
         state.userError = null;
       })
       .addCase(getUser.rejected, (state, action) => {
-        state.IsUserDataLoading = false;
+        state.userRequest = false;
         state.isAuthChecked = true;
         state.isAuthenticated = false;
         state.userError = action.error.message;
@@ -61,15 +62,15 @@ export const userSlice = createSlice({
         state.userData = action.payload.user;
         state.isAuthChecked = true;
         state.isAuthenticated = true;
-        state.IsUserDataLoading = false;
+        state.userRequest = false;
       });
     builder
       .addCase(updateUser.pending, (state) => {
-        state.IsUserDataLoading = true;
+        state.userRequest = true;
         state.userError = null;
       })
       .addCase(updateUser.rejected, (state, action) => {
-        state.IsUserDataLoading = false;
+        state.userRequest = false;
         state.isAuthChecked = true;
         state.isAuthenticated = false;
         state.userError = action.error.message;
@@ -78,15 +79,15 @@ export const userSlice = createSlice({
         state.userData = action.payload.user;
         state.isAuthChecked = true;
         state.isAuthenticated = true;
-        state.IsUserDataLoading = false;
+        state.userRequest = false;
       });
     builder
       .addCase(registerUser.pending, (state) => {
-        state.IsUserDataLoading = true;
+        state.userRequest = true;
         state.userError = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
-        state.IsUserDataLoading = false;
+        state.userRequest = false;
         state.isAuthChecked = true;
         state.isAuthenticated = false;
         state.userError = action.error.message;
@@ -95,17 +96,17 @@ export const userSlice = createSlice({
         state.userData = action.payload.user;
         state.isAuthChecked = true;
         state.isAuthenticated = true;
-        state.IsUserDataLoading = false;
+        state.userRequest = false;
         localStorage.setItem('refreshToken', action.payload.refreshToken);
         setCookie('accessToken', action.payload.accessToken);
       });
     builder
       .addCase(loginUser.pending, (state) => {
-        state.IsUserDataLoading = true;
+        state.userRequest = true;
         state.userError = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.IsUserDataLoading = false;
+        state.userRequest = false;
         state.isAuthChecked = true;
         state.isAuthenticated = false;
         state.userError = action.error.message;
@@ -114,17 +115,17 @@ export const userSlice = createSlice({
         state.userData = action.payload.user;
         state.isAuthChecked = true;
         state.isAuthenticated = true;
-        state.IsUserDataLoading = false;
+        state.userRequest = false;
         localStorage.setItem('refreshToken', action.payload.refreshToken);
         setCookie('accessToken', action.payload.accessToken);
       });
     builder
       .addCase(logoutUser.pending, (state) => {
-        state.IsUserDataLoading = true;
+        state.userRequest = true;
         state.userError = null;
       })
       .addCase(logoutUser.rejected, (state, action) => {
-        state.IsUserDataLoading = false;
+        state.userRequest = false;
         state.isAuthChecked = true;
         state.isAuthenticated = false;
         state.userError = action.error.message;
@@ -133,7 +134,7 @@ export const userSlice = createSlice({
         state.userData = null;
         state.isAuthChecked = true;
         state.isAuthenticated = false;
-        state.IsUserDataLoading = false;
+        state.userRequest = false;
         deleteCookie('accessToken');
         localStorage.removeItem('refreshToken');
       });
@@ -144,6 +145,7 @@ export const {
   getIsAuthChecked,
   getIsAuthenticated,
   getUserData,
+  getUserName,
   getUserError,
-  getUserLoading
+  getUserRequest
 } = userSlice.selectors;
