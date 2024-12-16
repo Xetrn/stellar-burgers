@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
 import { TUser } from '@utils-types';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 import {
@@ -100,6 +99,7 @@ export const userSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.user = action.payload?.user || null;
+        state.isAuthChecked = true;
         state.isLoading = false;
       })
       .addCase(getUser.rejected, (state) => {
@@ -108,8 +108,17 @@ export const userSlice = createSlice({
       })
 
       // checkUser
+      .addCase(checkUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(checkUser.fulfilled, (state) => {
         state.isAuthChecked = true;
+        state.isLoading = false;
+      })
+      .addCase(checkUser.rejected, (state) => {
+        state.isLoading = false;
+        state.error = ERROR_MESSAGES.USER_LOAD_FAILED;
       })
 
       // updateUser
@@ -133,7 +142,7 @@ export const userSlice = createSlice({
         state.user = action.payload;
         state.isLoading = false;
       })
-      .addCase(userRegister.rejected, (state, action) => {
+      .addCase(userRegister.rejected, (state) => {
         state.isLoading = false;
         state.error = ERROR_MESSAGES.REGISTRATION_FAILED;
       })
@@ -165,6 +174,7 @@ export const userSlice = createSlice({
       .addCase(userLogout.rejected, (state) => {
         state.isLoading = false;
         state.error = ERROR_MESSAGES.LOGOUT_FAILED;
+        state.isAuthChecked = false;
       });
   }
 });
