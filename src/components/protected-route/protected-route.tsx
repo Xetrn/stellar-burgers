@@ -1,6 +1,9 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from '../../services/store';
-import { getUserLoading, getUserData } from '../../services/slices/user-slice';
+import {
+  getIsAuthChecked,
+  getIsAuthenticated
+} from '../../services/slices/user-slice';
 import { Preloader } from '@ui';
 import { AppRoute } from '../../const';
 
@@ -14,18 +17,18 @@ export const ProtectedRoute = ({
   children
 }: ProtectedRouteProps) => {
   const location = useLocation();
-  const isUserLoading = useSelector(getUserLoading);
-  const userData = useSelector(getUserData);
+  const isAuthenticated = useSelector(getIsAuthenticated);
+  const isAuthChecked = useSelector(getIsAuthChecked);
 
-  if (!isUserLoading) {
+  if (!isAuthChecked) {
     return <Preloader />;
   }
 
-  if (!onlyUnAuth && !userData) {
+  if (!onlyUnAuth && !isAuthenticated) {
     return <Navigate replace to={AppRoute.Login} />;
   }
 
-  if (onlyUnAuth && userData) {
+  if (onlyUnAuth && isAuthenticated) {
     return (
       <Navigate replace to={location.state?.from || AppRoute.ConstructorPage} />
     );

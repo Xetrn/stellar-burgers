@@ -17,7 +17,6 @@ import { AppRoute } from '../../const';
 import styles from './app.module.css';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
-import { fetchIngredients } from '../../services/slices/ingredients-slice';
 import { getUser } from '../../services/slices/user-slice';
 
 const App = () => {
@@ -28,7 +27,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getUser());
-    dispatch(fetchIngredients());
   }, []);
 
   return (
@@ -39,7 +37,14 @@ const App = () => {
 
         <Route path={AppRoute.Feed}>
           <Route index element={<Feed />} />
-          <Route path=':number' element={<OrderInfo />} />
+          <Route
+            path=':number'
+            element={
+              <ProtectedRoute>
+                <OrderInfo />
+              </ProtectedRoute>
+            }
+          />
         </Route>
 
         <Route
@@ -79,10 +84,31 @@ const App = () => {
         />
 
         <Route path={AppRoute.Profile}>
-          <Route index element={<Profile />} />
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route path='orders'>
-            <Route index element={<ProfileOrders />} />
-            <Route path=':number' element={<OrderInfo />} />
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <ProfileOrders />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path=':number'
+              element={
+                <ProtectedRoute>
+                  <OrderInfo />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         </Route>
 
@@ -99,9 +125,11 @@ const App = () => {
           <Route
             path={`${AppRoute.Feed}/:number`}
             element={
-              <Modal title='Детали заказа' onClose={() => navigate(-1)}>
-                <OrderInfo />
-              </Modal>
+              <ProtectedRoute>
+                <Modal title='Детали заказа' onClose={() => navigate(-1)}>
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
           />
 
@@ -117,9 +145,11 @@ const App = () => {
           <Route
             path={`${AppRoute.Profile}/orders/:number`}
             element={
-              <Modal title='Детали заказа' onClose={() => navigate(-1)}>
-                <OrderInfo />
-              </Modal>
+              <ProtectedRoute>
+                <Modal title='Детали заказа' onClose={() => navigate(-1)}>
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>
