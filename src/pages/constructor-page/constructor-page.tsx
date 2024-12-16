@@ -1,19 +1,35 @@
-import { useSelector } from '../../services/store';
-
 import styles from './constructor-page.module.css';
 
 import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'src/services/store';
+import { getIngredientsApi } from '@api';
+import { setIngredients, setIngredientsLoading } from '@slices';
+import { Outlet } from 'react-router-dom';
 
 export const ConstructorPage: FC = () => {
-  /** TODO: взять переменную из стора */
-  const isIngredientsLoading = false;
+  const isLoading: boolean = useSelector(
+    (state: RootState) => state.ingredients.isLoading
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchIngredients = async () => {
+      dispatch(setIngredientsLoading(true));
+      const ingredients = await getIngredientsApi();
+      dispatch(setIngredients(ingredients));
+      dispatch(setIngredientsLoading(false));
+    };
+
+    fetchIngredients();
+  }, [dispatch]);
 
   return (
     <>
-      {isIngredientsLoading ? (
+      {isLoading ? (
         <Preloader />
       ) : (
         <main className={styles.containerMain}>
@@ -26,6 +42,7 @@ export const ConstructorPage: FC = () => {
             <BurgerIngredients />
             <BurgerConstructor />
           </div>
+          <Outlet />
         </main>
       )}
     </>
