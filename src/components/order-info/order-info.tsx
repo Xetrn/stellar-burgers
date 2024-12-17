@@ -1,34 +1,39 @@
-import { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { getOrderByNumberApi } from '@api';
+import { TIngredient, TOrder } from '@utils-types';
+
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
-import { TIngredient } from '@utils-types';
+import { useSelector } from '../../services/store';
+import { getIngredients } from '../../services/slices/ingredients-slice';
+
+interface OrderData extends Omit<TOrder, 'ingredients'> {
+  ingredients: string[];
+}
+
+interface IngredientsWithCount {
+  [key: string]: TIngredient & { count: number };
+}
+interface OrderInfoProcessed extends OrderData {
+  ingredientsInfo: IngredientsWithCount;
+  date: Date;
+  total: number;
+}
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const [orderData, setOrderData] = useState<OrderData | null>(null);
+  const ingredients = useSelector(getIngredients);
+  const { number: orderNumber } = useParams();
 
-  const ingredients: TIngredient[] = [];
-
-  /* Готовим данные для отображения */
-  const orderInfo = useMemo(() => {
+  const orderInfo = useMemo<OrderInfoProcessed | null>(() => {
     if (!orderData || !ingredients.length) return null;
 
     const date = new Date(orderData.createdAt);
 
-    type TIngredientsWithCount = {
-      [key: string]: TIngredient & { count: number };
-    };
-
-    const ingredientsInfo = orderData.ingredients.reduce(
-      (acc: TIngredientsWithCount, item) => {
+    const ingredientsInfo = orderData.ingredients.reduce<IngredientsWithCount>(
+      (acc, item) => {
         if (!acc[item]) {
           const ingredient = ingredients.find((ing) => ing._id === item);
           if (ingredient) {
@@ -58,6 +63,23 @@ export const OrderInfo: FC = () => {
       total
     };
   }, [orderData, ingredients]);
+
+  useEffect(() => {
+    if (orderNumber) {
+      const fetchOrderData = async () => {
+        try {
+          const data = await getOrderByNumberApi(Number(orderNumber));
+          if (data && data.orders && data.orders.length > 0) {
+            setOrderData(data.orders[0]);
+          }
+        } catch (e) {
+          console.error('Error fetching the order data', e);
+        }
+      };
+
+      fetchOrderData();
+    }
+  }, [orderNumber]);
 
   if (!orderInfo) {
     return <Preloader />;
