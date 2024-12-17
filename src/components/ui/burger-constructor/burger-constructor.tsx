@@ -13,6 +13,7 @@ import { Preloader, OrderDetailsUI } from '@ui';
 export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   constructorItems,
   orderRequest,
+  isModalOpened,
   price,
   orderModalData,
   onOrderClick,
@@ -84,16 +85,17 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         size='large'
         children='Оформить заказ'
         onClick={onOrderClick}
+        disabled={orderRequest || !constructorItems.bun || constructorItems.ingredients.length < 1}
       />
     </div>
 
-    {orderRequest && (
+    {orderRequest && isModalOpened && (
       <Modal onClose={closeOrderModal} title={'Оформляем заказ...'}>
         <Preloader />
       </Modal>
     )}
 
-    {orderModalData && (
+    {orderModalData && isModalOpened && (
       <Modal
         onClose={closeOrderModal}
         title={orderRequest ? 'Оформляем заказ...' : ''}
