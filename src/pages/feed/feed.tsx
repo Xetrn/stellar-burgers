@@ -13,19 +13,14 @@ export const Feed: FC = () => {
   const orders = useSelector(selectOrders);
   const isLoading = useSelector(selectLoading);
   const dispatch = useDispatch();
-  const ingredients = useSelector(selectAllIngredients);
-  const ingredientsLoading = useSelector(isIngredientsLoading);
 
   useEffect(() => {
     if (!isLoading) {
       dispatch(getFeed());
     }
-    if (!ingredients.length && !ingredientsLoading) {
-      dispatch(getIngredients());
-    }
   }, []);
 
-  if (isLoading || ingredientsLoading) {
+  if (isLoading) {
     return <Preloader />;
   }
 

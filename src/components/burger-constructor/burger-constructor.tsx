@@ -36,13 +36,12 @@ export const BurgerConstructor: FC = () => {
       return;
     }
 
-    const ids = [
+    const orderIngredients = [
       constructorItems.bun._id,
       ...constructorItems.ingredients.map(({ _id }: TIngredient) => _id),
       constructorItems.bun._id
     ];
-    console.log(ids);
-    dispatch(postOrder(ids));
+    dispatch(postOrder(orderIngredients));
   };
 
   const closeOrderModal = () => {

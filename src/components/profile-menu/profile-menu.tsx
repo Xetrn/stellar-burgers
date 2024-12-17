@@ -10,7 +10,6 @@ export const ProfileMenu: FC = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
-    console.log(pathname);
     nav('/');
   };
 

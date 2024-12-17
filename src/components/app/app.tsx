@@ -22,22 +22,43 @@ import {
 } from 'react-router-dom';
 import { ProtectedRoute } from '../../utils/protectedRoute';
 import { useEffect } from 'react';
-import { useDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { resetData } from '../order-card/order-card-slice/order-card-slice';
 import { resetModal } from '../order-info/order-info-slice/order-modal-slice';
 import { getUser } from '../../services/user-slice/actions';
+import {
+  selectIsAuthChecked,
+  selectIsAuthenticated,
+  selectLoginUserRequest,
+  selectUser
+} from '../../services/user-slice/user.slice';
+import {
+  selectAllIngredients,
+  selectLoading
+} from '../burger-ingredients/ingredients-slice/ingredients.slice';
+import { getIngredients } from '../burger-ingredients/ingredients-slice/getIngredients';
 
 const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
+  const user = useSelector(selectUser);
+  const userRequest = useSelector(selectIsAuthenticated);
+
   const state = location.state as { background?: Location };
   const backgroundLocation = state?.background;
 
+  const ingredients = useSelector(selectAllIngredients);
   useEffect(() => {
-    dispatch(getUser());
-  }, []);
+    if (!ingredients.length) {
+      dispatch(getIngredients());
+    }
+  }, [ingredients, dispatch]);
+
+  useEffect(() => {
+    if (!user.email || !userRequest) dispatch(getUser());
+  }, [user, dispatch]);
 
   return (
     <div className={styles.app}>
