@@ -92,7 +92,7 @@ describe("Тесты для редьюсера конструктора бург
 
 
     describe("Тесты для самих редьюсеров конструктора", () => {
-        test("Добавление ингредиента + проверка, что он не идет в булку", () => {
+        test("Добавление ингредиента + проверка, что он не идет в поле булки", () => {
             const chosenIngredient = someIngredients[0];
             const constructorIngredient: TConstructorIngredient = {...chosenIngredient, id: "0"};
             const newState = constructorReducer(constructorInitialState, addIngredient(constructorIngredient));

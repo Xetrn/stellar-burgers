@@ -6,6 +6,7 @@ import { getIngredients } from "../thunks";
 
 export type IngredientsData = {
     isIngredientsLoading: boolean,
+    isIngredientsError: boolean,
     ingredients: TIngredient[],
     buns: TIngredient[],
     mains: TIngredient[],
@@ -14,6 +15,7 @@ export type IngredientsData = {
 
 const initialState: IngredientsData = {
     isIngredientsLoading: true,
+    isIngredientsError: false,
     ingredients: [],
     buns: [],
     mains: [],
@@ -27,7 +29,8 @@ const ingredientsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getIngredients.pending, (state) => {
-            state.isIngredientsLoading = true
+            state.isIngredientsLoading = true;
+            state.isIngredientsError = false;
         })
         .addCase(getIngredients.fulfilled, (state, action) => {
             const ingredients = action.payload;
@@ -36,6 +39,10 @@ const ingredientsSlice = createSlice({
             state.mains = ingredients.filter(i => i.type === 'main');
             state.sauces = ingredients.filter(i => i.type === 'sauce');
             state.isIngredientsLoading = false;
+        })
+        .addCase(getIngredients.rejected, (state) => {
+            state.isIngredientsLoading = false;
+            state.isIngredientsError = true;
         })
     }
 });
