@@ -30,7 +30,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
       </div>
       <div className={styles.link_position_last}>
         <ProfileIcon type={'primary'} />
-        <Link to='/profile' className={`${styles.link} ${location.pathname.includes("profile") ? styles.link_active : ""}`}><p className='text text_type_main-default ml-2'>
+        <Link data-cy='user-name' to='/profile' className={`${styles.link} ${location.pathname.includes("profile") ? styles.link_active : ""}`}><p className='text text_type_main-default ml-2'>
           {userName || 'Личный кабинет'}
         </p></Link>
       </div>
