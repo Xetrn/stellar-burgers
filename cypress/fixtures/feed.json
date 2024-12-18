@@ -1,0 +1,45 @@
+{
+  "success": true,
+  "orders": [
+    {
+      "_id": "0",
+      "ingredients": [
+        "0",
+        "0"
+      ],
+      "status": "done",
+      "name": "Краторный бургер",
+      "createdAt": "2024-12-18T07:55:27.844Z",
+      "updatedAt": "2024-12-18T07:55:28.883Z",
+      "number": 3
+    },
+    {
+      "_id": "1",
+      "ingredients": [
+        "4",
+        "1",
+        "4"
+      ],
+      "status": "done",
+      "name": "Флюоресцентный люминесцентный бургер",
+      "createdAt": "2024-12-18T07:51:42.076Z",
+      "updatedAt": "2024-12-18T07:51:43.008Z",
+      "number": 2
+    },
+    {
+      "_id": "2",
+      "ingredients": [
+        "0",
+        "3",
+        "2",
+        "0"
+      ],
+      "status": "done",
+      "name": "Флюоресцентный бургер",
+      "createdAt": "2024-12-18T07:50:30.246Z",
+      "updatedAt": "2024-12-18T07:50:31.498Z",
+      "number": 1
+    }],
+  "total": 3,
+  "totalToday": 0
+}

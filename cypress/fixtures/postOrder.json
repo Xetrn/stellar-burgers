@@ -1,0 +1,35 @@
+{
+  "success": true,
+  "name": "Метеоритный флюоресцентный бессмертный бургер",
+  "order": {
+    "ingredients": [
+      {
+        "_id":"0",
+        "name":"Булка 1",
+        "type":"bun",
+        "proteins":12,
+        "fat":12,
+        "carbohydrates":12,
+        "calories":134,
+        "price":3000,
+        "image":"https://code.s3.yandex.net/react/code/bun-02.png",
+        "image_mobile":"https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+        "image_large":"https://code.s3.yandex.net/react/code/bun-02-large.png",
+        "__v":0
+      }
+    ],
+    "_id": "6762d1a5750864001d37249c",
+    "owner": {
+      "name": "test",
+      "email": "test@yandex.ru",
+      "createdAt": "2024-12-11T18:38:41.413Z",
+      "updatedAt": "2024-12-12T09:04:07.388Z"
+    },
+    "status": "done",
+    "name": "Основной бургер",
+    "createdAt": "2024-12-18T13:44:05.593Z",
+    "updatedAt": "2024-12-18T13:44:06.411Z",
+    "number": 4,
+    "price": 6000
+  }
+}
