@@ -87,6 +87,7 @@ describe("Интеграционные тесты на конструктор б
 
         const modalContent = cy.get("[data-cy='modal-content']");
         modalContent.should('be.visible');
+        modalContent.should('contain.text', '63207');
         cy.get("[data-cy='modal-button-close']").click();
         modalContent.should('not.exist');
 
