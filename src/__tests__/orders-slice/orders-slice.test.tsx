@@ -2,6 +2,7 @@ import { TOrder } from "@utils-types";
 import { clearOrders, OrdersData, ordersReducer } from "../../../src/services/slices/ordersSlice";
 import { getOrders } from "../../../src/services/thunks";
 import { SerializedError } from "@reduxjs/toolkit";
+import { fulfilledDesc, pendingDesc, rejectedDesc } from "../../../src/utils/const";
 
 
 const ordersData: TOrder[] = [
@@ -180,18 +181,18 @@ describe("Тесты для редьюсера заказов пользоват
     });
 
     describe("Тесты на асинхронные запросы (получение заказов пользователя)", () => {
-        test("Проверка ожидания запроса", () => {
+        test(pendingDesc, () => {
             const newState = ordersReducer(initialState, {type: getOrders.pending.type});
             expect(newState.isOrdersRequest).toBe(true);
         });
 
-        test("Проверка успешного выполнения запроса", () => {
+        test(fulfilledDesc, () => {
             const newState = ordersReducer(initialState, {type: getOrders.fulfilled.type, payload: ordersResponse});
             expect(newState.isOrdersRequest).toBe(false);
             expect(newState.orders).toEqual(ordersData);
         });
 
-        test("Проверка завершения запроса с ошибкой", () => {
+        test(rejectedDesc, () => {
             const newState = ordersReducer(initialState, {type: getOrders.rejected.type, error});
             expect(newState.isOrdersRequest).toBe(false);
             expect(newState.isOrdersError).toBe(true);

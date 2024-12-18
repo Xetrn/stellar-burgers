@@ -2,6 +2,7 @@ import { TConstructorIngredient, TIngredient } from "../../utils/types";
 import { orderBurger } from "../../../src/services/thunks";
 import { addIngredient, ConstructorItems, constructorReducer, removeIngredient, setBun, swapWithAbove, swapWithBelow } from "../../../src/services/slices/constructorSlice";
 import { TNewOrderResponse } from "../../utils/burger-api";
+import { fulfilledDesc, pendingDesc, rejectedDesc } from "../../../src/utils/const";
 
 
 const bun: TIngredient = {
@@ -125,12 +126,12 @@ describe("Тесты для редьюсера конструктора бург
     });
 
     describe("Тесты для асинхронных запросов конструктора (оформление заказа)", () => {
-        test("Проверка инициации оформления заказа", () => {
+        test(pendingDesc, () => {
             const newState = constructorReducer(constructorFilledState, {type: orderBurger.pending.type});
             expect(newState.isOrderRequest).toBe(true);
         });
 
-        test("Проверка успешного выполнения запроса", () => {
+        test(fulfilledDesc, () => {
             const newState = constructorReducer(constructorFilledState, {type: orderBurger.fulfilled.type, payload: orderCreatedResponse});
             expect(newState.isOrderRequest).toBe(false);
             expect(newState.orderData).toEqual(orderCreatedResponse.order);
@@ -138,7 +139,7 @@ describe("Тесты для редьюсера конструктора бург
             expect(newState.constructorItems.ingredients).toHaveLength(0);
         });
 
-        test("Проверка завершения запроса оформления заказа с ошибкой", () => {
+        test(rejectedDesc, () => {
             const newState = constructorReducer(constructorInitialState, {type: orderBurger.rejected.type});
             expect(newState.isOrderRequest).toBe(false);
             expect(newState.isOrderRequestError).toBe(true);

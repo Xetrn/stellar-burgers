@@ -2,7 +2,7 @@ import { FeedsData, feedsReducer } from "../../../src/services/slices/feedsSlice
 import { TOrder } from "@utils-types";
 import { getFeeds } from "../../../src/services/thunks";
 import { TFeedsResponse } from "@api";
-import { SerializedError } from "@reduxjs/toolkit";
+import { fulfilledDesc, pendingDesc, rejectedDesc } from "../../../src/utils/const";
 
 const feedsData: TOrder[] = [
     {
@@ -86,12 +86,12 @@ describe("Тесты для редьюсера ленты заказов", () =>
     }
 
     describe("Тесты на асинхронные запросы (получение ленты)", () => {
-        test("Проверка ожидания запроса", () => {
+        test(pendingDesc, () => {
             const newState = feedsReducer(initialState, {type: getFeeds.pending.type});
             expect(newState.isFeedsLoading).toBe(true);
         });
 
-        test("Проверка успешного выполнения запроса", () => {
+        test(fulfilledDesc, () => {
             const newState = feedsReducer(initialState, {type: getFeeds.fulfilled.type, payload: feedsResponse});
             expect(newState.isFeedsLoading).toBe(false);
             expect(newState.orders).toEqual(feedsData);
@@ -99,7 +99,7 @@ describe("Тесты для редьюсера ленты заказов", () =>
             expect(newState.totalToday).toBe(feedsResponse.totalToday);
         });
 
-        test("Проверка завершения запроса с ошибкой", () => {
+        test(rejectedDesc, () => {
             const newState = feedsReducer(initialState, {type: getFeeds.rejected.type});
             expect(newState.isFeedsLoading).toBe(false);
             expect(newState.isFeedsError).toBe(true);

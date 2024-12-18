@@ -2,6 +2,7 @@ import { TIngredient } from "@utils-types";
 import { IngredientsData, ingredientsReducer } from "../../../src/services/slices/ingredientsSlice";
 import { getIngredients } from "../../../src/services/thunks";
 import { TIngredientsResponse } from "@api";
+import { fulfilledDesc, pendingDesc, rejectedDesc } from "../../../src/utils/const";
 
 const ingredientsData: TIngredient[] = [
     {
@@ -92,12 +93,12 @@ describe("Тесты редьюсера ингредиентов", () => {
     };
 
     describe("Тесты на асинхронные запросы (получение ингредиентов)", () => {
-        test("Проверка ожидания запроса", () => {
+        test(pendingDesc, () => {
             const newState = ingredientsReducer(initialState, {type: getIngredients.pending.type});
             expect(newState.isIngredientsLoading).toBe(true);
         });
 
-        test("Проверка успешного выполнения запроса", () => {
+        test(fulfilledDesc, () => {
             const newState = ingredientsReducer(initialState, {type: getIngredients.fulfilled.type, payload: ingredientsResponse.data});
             expect(newState.isIngredientsLoading).toBe(false);
             expect(newState.ingredients).toEqual(ingredientsData);
@@ -106,7 +107,7 @@ describe("Тесты редьюсера ингредиентов", () => {
             expect(newState.sauces).toEqual(sauces);
         });
 
-        test("Проверка завершения запроса с ошибкой", () => {
+        test(rejectedDesc, () => {
             const newState = ingredientsReducer(initialState, {type: getIngredients.rejected.type});
             expect(newState.isIngredientsLoading).toBe(false);
             expect(newState.isIngredientsError).toBe(true);
