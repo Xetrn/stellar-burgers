@@ -20,6 +20,7 @@ export const BurgerConstructor: FC = () => {
 
         if (!isAuth) {
             navigate('/login');
+            return;
         }
 
         dispatch(orderBurger([constructorItems.bun._id, ...constructorItems.ingredients.map((value) => value._id)]));

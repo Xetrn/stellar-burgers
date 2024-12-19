@@ -9,7 +9,11 @@ import { useSelector } from '@src/services/store';
 export const OrderInfo: FC = () => {
     const { number } = useParams();
 
-    const orders = useSelector((state) => state.feedsReducer.orders);
+    const feedsOrders = useSelector((state) => state.feedsReducer.orders);
+    const ordersOrders = useSelector((state) => state.ordersReducer.orders);
+
+    const orders = [...feedsOrders, ...ordersOrders];
+
     const orderData = orders.find((value) => value.number === Number(number));
 
     const ingredients = useSelector((state) => state.ingredientsReducer.ingredients);
