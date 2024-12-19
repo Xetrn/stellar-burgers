@@ -1,7 +1,11 @@
-# x курс
-# Фамилия Имя Отчество
+# 3 курс
+# Рожков Максим Евгеньевич
 
 # Проектная работа 11-го спринта
+
+[Задеплоенный сайт](https://catdev-stellar-burgers.netlify.app/)
+
+---
 
 [Макет](<https://www.figma.com/file/vIywAvqfkOIRWGOkfOnReY/React-Fullstack_-Проектные-задачи-(3-месяца)_external_link?type=design&node-id=0-1&mode=design>)
 
