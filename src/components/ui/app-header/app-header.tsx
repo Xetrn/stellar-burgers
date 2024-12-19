@@ -56,7 +56,6 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
             </p>
           </NavLink>
         </div>
-        
       </nav>
     </header>
   );
