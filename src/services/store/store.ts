@@ -1,15 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { IngredientsSlice } from './ingredientsSlice';
+import { IngredientsSlice } from '../slices/ingredientsSlice/ingredientsSlice';
 
 import {
   TypedUseSelectorHook,
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
-import { BurgerConstructorSlice } from './burgerConstructorSlice';
-import { UserSlice } from './userSlice';
-import { OrderSlice } from './orderSlice';
-import { FeedSlice } from './feedSlice';
+import { BurgerConstructorSlice } from '../slices/burgerConstructorSlice/burgerConstructorSlice';
+import { UserSlice } from '../slices/userSlice/userSlice';
+import { OrderSlice } from '../slices/orderSlice/orderSlice';
+import { FeedSlice } from '../slices/feedSlice/feedSlice';
 
 const rootReducer = {
   [IngredientsSlice.name]: IngredientsSlice.reducer,

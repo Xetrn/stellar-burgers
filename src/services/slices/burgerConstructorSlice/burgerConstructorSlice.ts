@@ -3,7 +3,7 @@ import {
   ERequestStatus,
   TConstructorIngredient,
   TIngredient
-} from './../utils/types';
+} from '@utils-types';
 
 export type TBurgerConstructorState = {
   constructorItems: {
