@@ -67,7 +67,7 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-type TUserState = {
+export type TUserState = {
   isAuthChecked: boolean;
   isAuthenticated: boolean;
   data: TUser | null;
