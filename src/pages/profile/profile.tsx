@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import { selectUser } from '../../services/user-slice/user.slice';
 
 import { updateUserData } from '../../services/user-slice/actions';
-import { selectError } from '../../components/order-info/order-info-slice/order-modal-slice';
+import { selectError } from '../../components/order-info/order-modal-slice/order-modal.slice';
 
 export const Profile: FC = () => {
   const user = useSelector(selectUser);

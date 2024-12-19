@@ -111,25 +111,35 @@ export const UserSlice = createSlice({
           localStorage.setItem('refreshToken', action.payload.refreshToken);
         }
       })
-      .addCase(updateUserData.pending, (state, action) => {})
+      .addCase(updateUserData.pending, (state, action) => {
+        state.loginUserRequest = true;
+      })
 
       .addCase(updateUserData.fulfilled, (state, action) => {
         state.data = action.payload.user;
+        state.loginUserRequest = false;
       })
       .addCase(updateUserData.rejected, (state, action) => {
         state.error = action.error.message;
+        state.loginUserRequest = false;
       })
 
-      .addCase(logout.pending, (state, action) => {})
+      .addCase(logout.pending, (state, action) => {
+        state.loginUserRequest = true;
+      })
 
       .addCase(logout.fulfilled, (state, action) => {
         state.data = { email: '', name: '' };
+        state.loginUserRequest = false;
         state.isAuthenticated = false;
         state.isAuthChecked = true;
         setCookie('accessToken', '');
         localStorage.removeItem('refreshToken');
       })
-      .addCase(logout.rejected, (state, action) => {});
+      .addCase(logout.rejected, (state, action) => {
+        state.loginUserRequest = false;
+        state.error = action.error.message;
+      });
   }
 });
 
@@ -140,3 +150,5 @@ export const {
   selectLoginUserError,
   selectLoginUserRequest
 } = UserSlice.selectors;
+
+export default UserSlice.reducer;

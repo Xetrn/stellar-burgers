@@ -2,10 +2,10 @@ import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
-import { selectOrder } from './order-info-slice/order-modal-slice';
+import { selectOrder } from './order-modal-slice/order-modal.slice';
 import { useDispatch, useSelector } from '../../services/store';
 import { selectAllIngredients } from '../burger-ingredients/ingredients-slice/ingredients.slice';
-import { getOrderById } from './order-info-slice/getFeedById';
+import { getOrderById } from './order-modal-slice/getFeedById';
 import { useLocation } from 'react-router-dom';
 import { getLastUrlPath } from '../../utils/utils';
 

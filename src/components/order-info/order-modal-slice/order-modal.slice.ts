@@ -1,8 +1,8 @@
-import { createReducer, createSlice } from '@reduxjs/toolkit';
-import { getIngredients } from '../../../components/burger-ingredients/ingredients-slice/getIngredients';
-import { getFeed } from './getFeed';
+import { createSlice } from '@reduxjs/toolkit';
+
 import { IOrderModal } from './types';
 import { getOrderById } from './getFeedById';
+import { TPendingProps } from '../../../services/types';
 
 const initialState: IOrderModal = {
   order: {
@@ -14,13 +14,12 @@ const initialState: IOrderModal = {
     number: 0,
     ingredients: []
   },
-
-  loading: false,
-  error: ''
+  error: null,
+  loading: false
 };
 
 export const OrderModalSlice = createSlice({
-  name: 'order',
+  name: 'orderModalSlice',
   initialState,
   selectors: {
     selectOrder: (state) => state.order,
@@ -53,6 +52,7 @@ export const OrderModalSlice = createSlice({
 
     builder.addCase(getOrderById.rejected, (state, action) => {
       state.loading = false;
+      state.error = action.error.message;
     });
   }
 });
@@ -60,3 +60,5 @@ export const OrderModalSlice = createSlice({
 export const { selectError, selectLoading, selectOrder } =
   OrderModalSlice.selectors;
 export const { resetModal } = OrderModalSlice.actions;
+
+export default OrderModalSlice.reducer;

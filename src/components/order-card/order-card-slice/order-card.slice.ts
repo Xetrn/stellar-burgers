@@ -1,14 +1,10 @@
 import { TPendingProps } from '../../../services/types';
 import { createSlice } from '@reduxjs/toolkit';
-import { getFeed } from '../../order-info/order-info-slice/getFeed';
 import { TOrder } from '@utils-types';
 import { postOrder } from './postOrder';
-import { useSelector } from '../../../services/store';
-import { selectIsAuthenticated } from '../../../services/user-slice/user.slice';
 
 interface iOrderCardSlice extends TPendingProps {
   orderId: number;
-  orderRequest: boolean;
   orderModalData: TOrder | null;
 }
 
@@ -16,39 +12,39 @@ const initialState: iOrderCardSlice = {
   orderId: 0,
   error: null,
   loading: false,
-  orderRequest: false,
   orderModalData: null
 };
 
 export const OrderCardSlice = createSlice({
-  name: 'orderCartSlice',
+  name: 'orderCardSlice',
   initialState,
   reducers: {
     resetData: (state) => {
-      state.orderRequest = false;
+      state.loading = false;
       state.orderModalData = null;
     }
   },
   selectors: {
-    selectOrderRequest: (state) => state.orderRequest,
     selectLoading: (state) => state.loading,
     selectOrderModalData: (state) => state.orderModalData
   },
   extraReducers: (builder) =>
     builder
       .addCase(postOrder.pending, (state, action) => {
-        state.orderRequest = true;
+        state.loading = true;
       })
       .addCase(postOrder.fulfilled, (state, action) => {
         state.orderModalData = action.payload.order;
         state.orderId = action.payload.order.number;
-        state.orderRequest = false;
+        state.loading = false;
       })
       .addCase(postOrder.rejected, (state, action) => {
-        state.orderRequest = false;
+        state.loading = false;
+        state.error = action.error.message;
       })
 });
 
-export const { selectOrderRequest, selectOrderModalData, selectLoading } =
-  OrderCardSlice.selectors;
+export const { selectOrderModalData, selectLoading } = OrderCardSlice.selectors;
 export const { resetData } = OrderCardSlice.actions;
+
+export default OrderCardSlice.reducer;

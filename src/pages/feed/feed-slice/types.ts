@@ -1,18 +1,16 @@
 import { OrderInfo } from '@components';
 import { TOrder } from '@utils-types';
+import { TPendingProps } from '../../../services/types';
 
-export type TFeed = {
+export interface TFeed extends TPendingProps {
   orders: TOrder[];
-
-  isLoading: boolean;
-  error: string | undefined;
   feed: {
     total: number;
     totalToday: number;
   };
   userOrders: TOrder[];
   loadingUser: boolean;
-};
+}
 export const FeedInitial = {
   orders: [],
   isLoading: false,

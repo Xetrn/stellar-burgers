@@ -2,7 +2,6 @@ import { TIngredient } from '@utils-types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getIngredients } from './getIngredients';
 import { TPendingProps } from '../../../services/types';
-import { useSelector } from '../../../services/store';
 
 interface TBurgerIngredientsSlice extends TPendingProps {
   buns: TIngredient[];
@@ -19,13 +18,13 @@ const initialState: TBurgerIngredientsSlice = {
   sauces: [],
   all: [],
   loading: false,
-  error: '',
+  error: null,
   chosenIngredient: null,
   chosenIngredientId: null
 };
 
 export const IngredientsSlice = createSlice({
-  name: 'allIngredients',
+  name: 'ingredientsSlice',
   initialState,
   reducers: {
     chooseIngredient: (store, action: PayloadAction<string>) => {
@@ -58,6 +57,7 @@ export const IngredientsSlice = createSlice({
     });
     builder.addCase(getIngredients.rejected, (state, action) => {
       state.loading = false;
+      state.error = action.error.message;
     });
   }
 });
@@ -71,3 +71,5 @@ export const {
 } = IngredientsSlice.selectors;
 
 export const { chooseIngredient } = IngredientsSlice.actions;
+
+export default IngredientsSlice.reducer;

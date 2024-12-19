@@ -1,12 +1,11 @@
-import { createReducer, createSlice } from '@reduxjs/toolkit';
-import { getIngredients } from '../../../components/burger-ingredients/ingredients-slice/getIngredients';
+import { createSlice } from '@reduxjs/toolkit';
 import { TFeed } from './types';
-import { getFeed, getOrderById, getUserOrders } from './actions';
+import { getFeed, getUserOrders } from './actions';
 
 const initialState: TFeed = {
   orders: [],
-  isLoading: false,
-  error: '',
+  loading: false,
+  error: null,
   feed: {
     totalToday: 0,
     total: 0
@@ -20,7 +19,7 @@ export const FeedSlice = createSlice({
   initialState,
   selectors: {
     selectOrders: (state) => state.orders,
-    selectLoading: (state) => state.isLoading,
+    selectLoading: (state) => state.loading,
     selectLoadingUser: (state) => state.loadingUser,
     selectInfo: (state) => state.feed,
     selectUserOrders: (state) => state.userOrders
@@ -28,17 +27,17 @@ export const FeedSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getFeed.pending, (state) => {
-      state.isLoading = true;
+      state.loading = true;
     });
     builder.addCase(getFeed.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.loading = false;
       state.orders = action.payload.orders;
       state.feed.total = action.payload.total;
       state.feed.totalToday = action.payload.totalToday;
     });
-
-    builder.addCase(getOrderById.rejected, (state, action) => {
-      state.isLoading = false;
+    builder.addCase(getFeed.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
     });
 
     builder.addCase(getUserOrders.pending, (state) => {
@@ -62,3 +61,5 @@ export const {
   selectInfo,
   selectLoadingUser
 } = FeedSlice.selectors;
+
+export default FeedSlice.reducer;

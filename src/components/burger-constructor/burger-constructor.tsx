@@ -6,21 +6,19 @@ import {
   resetSelect,
   selectConstructorItems
 } from '../../pages/constructor-page/constructor-slice/constructor.slice';
-import { getFeed } from '../order-info/order-info-slice/getFeed';
 import { postOrder } from '../order-card/order-card-slice/postOrder';
-import { selectOrder } from '../order-info/order-info-slice/order-modal-slice';
 import {
   resetData,
   selectOrderModalData,
-  selectOrderRequest
-} from '../order-card/order-card-slice/order-card-slice';
+  selectLoading
+} from '../order-card/order-card-slice/order-card.slice';
 
 import { selectIsAuthenticated } from '../../services/user-slice/user.slice';
 import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const constructorItems = useSelector(selectConstructorItems);
-  const orderRequest = useSelector(selectOrderRequest);
+  const orderRequest = useSelector(selectLoading);
   const orderModalData = useSelector(selectOrderModalData);
   const auth = useSelector(selectIsAuthenticated);
 

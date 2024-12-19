@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import {
   selectLoadingUser,
   selectUserOrders
-} from '../feed/feed-slice/feed-slice';
+} from '../feed/feed-slice/feed.slice';
 import { getUserOrders } from '../feed/feed-slice/actions';
 import { Preloader } from '@ui';
 

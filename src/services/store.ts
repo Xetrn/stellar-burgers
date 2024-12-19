@@ -7,13 +7,12 @@ import {
 } from 'react-redux';
 import { IngredientsSlice } from '../components/burger-ingredients/ingredients-slice/ingredients.slice';
 import { ConstructorSlice } from '../pages/constructor-page/constructor-slice/constructor.slice';
-import { FeedSlice } from '../pages/feed/feed-slice/feed-slice';
-import { OrderModalSlice } from '../components/order-info/order-info-slice/order-modal-slice';
-import { OrderCardSlice } from '../components/order-card/order-card-slice/order-card-slice';
-import { OrderCard } from '@components';
+import { FeedSlice } from '../pages/feed/feed-slice/feed.slice';
+import { OrderModalSlice } from '../components/order-info/order-modal-slice/order-modal.slice';
+import { OrderCardSlice } from '../components/order-card/order-card-slice/order-card.slice';
 import { UserSlice } from './user-slice/user.slice';
 
-const rootReducer = {
+export const rootReducer = {
   [IngredientsSlice.name]: IngredientsSlice.reducer,
   [ConstructorSlice.name]: ConstructorSlice.reducer,
   [FeedSlice.name]: FeedSlice.reducer,

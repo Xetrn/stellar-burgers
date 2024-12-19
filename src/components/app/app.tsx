@@ -23,19 +23,13 @@ import {
 import { ProtectedRoute } from '../../utils/protectedRoute';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
-import { resetData } from '../order-card/order-card-slice/order-card-slice';
-import { resetModal } from '../order-info/order-info-slice/order-modal-slice';
+import { resetModal } from '../order-info/order-modal-slice/order-modal.slice';
 import { getUser } from '../../services/user-slice/actions';
 import {
-  selectIsAuthChecked,
   selectIsAuthenticated,
-  selectLoginUserRequest,
   selectUser
 } from '../../services/user-slice/user.slice';
-import {
-  selectAllIngredients,
-  selectLoading
-} from '../burger-ingredients/ingredients-slice/ingredients.slice';
+import { selectAllIngredients } from '../burger-ingredients/ingredients-slice/ingredients.slice';
 import { getIngredients } from '../burger-ingredients/ingredients-slice/getIngredients';
 
 const App = () => {

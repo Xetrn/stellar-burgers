@@ -13,7 +13,7 @@ describe('Создание заказа', () => {
     }).as('getIngredients');
 
     cy.intercept('POST', ApiRoutes.postOrder, {
-      fixture: 'postOrder.json'
+      fixture: 'postOrderResponse.json'
     }).as('postOrder');
 
     cy.visit('http://localhost:4000/');

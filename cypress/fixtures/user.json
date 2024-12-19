@@ -2,6 +2,7 @@
   "success": true,
   "user": {
     "email": "test@yandex.ru",
-    "name": "test"
+    "name": "test",
+    "password": "1"
   }
 }
