@@ -1,10 +1,23 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
+import { useSelector } from '../../services/store';
+import {
+  chooseIngredient,
+  selectIngredientDetails
+} from '../burger-ingredients/ingredients-slice/ingredients.slice';
+import { useLocation } from 'react-router-dom';
+import { getLastUrlPath } from '../../utils/utils';
+import { useDispatch } from 'react-redux';
 
 export const IngredientDetails: FC = () => {
-  /** TODO: взять переменную из стора */
-  const ingredientData = null;
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const ingredientData = useSelector(selectIngredientDetails);
+
+  useEffect(() => {
+    dispatch(chooseIngredient(getLastUrlPath(location.pathname)));
+  }, []);
 
   if (!ingredientData) {
     return <Preloader />;

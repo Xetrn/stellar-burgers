@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "name": "Метеоритный флюоресцентный бессмертный бургер",
+  "order": {
+    "ingredients": [
+      "0"
+    ],
+    "_id": "6762d1a5750864001d37249c",
+    "owner": {
+      "name": "test",
+      "email": "test@yandex.ru",
+      "createdAt": "2024-12-11T18:38:41.413Z",
+      "updatedAt": "2024-12-12T09:04:07.388Z"
+    },
+    "status": "done",
+    "name": "Основной бургер",
+    "createdAt": "2024-12-18T13:44:05.593Z",
+    "updatedAt": "2024-12-18T13:44:06.411Z",
+    "number": 4,
+    "price": 6000
+  }
+}

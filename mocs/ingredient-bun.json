@@ -1,0 +1,15 @@
+{
+  "_id":"0",
+  "name":"Булка 1",
+  "type":"bun",
+  "proteins":12,
+  "fat":12,
+  "carbohydrates":12,
+  "calories":134,
+  "price":3000,
+  "image":"https://code.s3.yandex.net/react/code/bun-02.png",
+  "image_mobile":"https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+  "image_large":"https://code.s3.yandex.net/react/code/bun-02-large.png",
+  "__v":0,
+  "id":"0"
+}

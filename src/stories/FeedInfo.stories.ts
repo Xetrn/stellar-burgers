@@ -32,7 +32,7 @@ export const DefaultFeedInfo: Story = {
       total: 12,
       totalToday: 2,
       isLoading: false,
-      error: null
+      error: ''
     },
     readyOrders: [123, 124, 125],
     pendingOrders: [126, 127]

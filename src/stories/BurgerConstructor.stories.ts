@@ -1,5 +1,6 @@
 import { BurgerConstructorUI } from '@ui';
 import type { Meta, StoryObj } from '@storybook/react';
+import { BunInitial } from '../services/types';
 
 const meta = {
   title: 'Example/BurgerConstructor',
@@ -17,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 
 export const DefaultConstructor: Story = {
   args: {
-    constructorItems: { bun: null, ingredients: [] },
+    constructorItems: { bun: BunInitial, ingredients: [] },
     orderRequest: false,
     price: 0,
     orderModalData: null,

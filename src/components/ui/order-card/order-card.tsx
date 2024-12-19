@@ -13,12 +13,13 @@ import { OrderStatus } from '@components';
 export const OrderCardUI: FC<OrderCardUIProps> = memo(
   ({ orderInfo, maxIngredients, locationState }) => (
     <Link
+      data-cy={'order' + orderInfo.number}
       to={orderInfo.number.toString()}
       relative='path'
       state={locationState}
       className={`p-6 mb-4 mr-2 ${styles.order}`}
     >
-      <div className={styles.order_info}>
+      <div className={styles.order_info} cy-data={'order' + orderInfo.number}>
         <span className={`text text_type_digits-default ${styles.number}`}>
           #{String(orderInfo.number).padStart(6, '0')}
         </span>

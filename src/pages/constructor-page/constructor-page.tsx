@@ -1,15 +1,20 @@
-import { useSelector } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 
 import styles from './constructor-page.module.css';
 
 import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import {
+  selectAllIngredients,
+  selectLoading
+} from '../../components/burger-ingredients/ingredients-slice/ingredients.slice';
+import { getIngredients } from '../../components/burger-ingredients/ingredients-slice/getIngredients';
+import { getUser } from '../../services/user-slice/actions';
 
 export const ConstructorPage: FC = () => {
-  /** TODO: взять переменную из стора */
-  const isIngredientsLoading = false;
+  const isIngredientsLoading = useSelector(selectLoading);
 
   return (
     <>
