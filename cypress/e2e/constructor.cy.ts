@@ -5,9 +5,8 @@ const burgerConstructor = '[data-cy="constructor"]';
 
 describe('Burger builder and order flow', () => {
   beforeEach(() => {
-    window.localStorage.setItem('refreshToken', JSON.stringify('refresh_token_mock'));
+    localStorage.setItem('refreshToken', JSON.stringify('refresh_token_mock'));
     cy.setCookie('accessToken', JSON.stringify('access_token_mock'));
-
     cy.intercept('GET', `api/ingredients`, {
       fixture: 'ingredients.json'
     }).as('fetchIngredients');
@@ -17,16 +16,9 @@ describe('Burger builder and order flow', () => {
     cy.intercept('POST', `api/orders`, { fixture: 'order.json' }).as(
       'createOrder'
     );
-
-
     cy.visit('');
     cy.wait('@fetchUserData');
     cy.wait('@fetchIngredients');
-  });
-
-  afterEach(() => {
-    cy.clearCookie('refreshToken');
-    cy.clearCookie('accessToken');
   });
 
   describe('Burger constructor interactions', () => {
@@ -61,11 +53,9 @@ describe('Burger builder and order flow', () => {
       cy.get(modal).as('modal');
       cy.get('@modal').should('exist');
       cy.get('@modal').should('contain', '555');
-
       cy.get('@modal').should('exist');
       cy.get(modalOverlay).click('top', { force: true });
       cy.get('@modal').should('not.exist');
-
       cy.get('@constructor').should('contain', '');
     });
   });
