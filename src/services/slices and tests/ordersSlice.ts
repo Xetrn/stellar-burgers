@@ -7,7 +7,7 @@ import {
 } from '@api';
 import { TOrder } from '@utils-types';
 
-interface IOrdersState {
+export interface IOrdersState {
   order: TOrder | null;
   orders: TOrder[];
   feedOrders: TOrder[];
@@ -17,7 +17,7 @@ interface IOrdersState {
   error: string | null | undefined;
 }
 
-const initialState: IOrdersState = {
+export const initialState: IOrdersState = {
   order: null,
   orders: [],
   feedOrders: [],

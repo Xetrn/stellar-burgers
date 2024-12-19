@@ -11,7 +11,7 @@ import {
   TRegisterData,
   TLoginData
 } from '@api';
-import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
 type TAuthState = {
   user: TUser | null;
@@ -20,7 +20,7 @@ type TAuthState = {
   error: string | null;
 };
 
-const initialState: TAuthState = {
+export const initialState: TAuthState = {
   user: null,
   isAuthChecked: false,
   error: null,

@@ -17,9 +17,12 @@ import { AppHeader, Modal, OrderInfo, IngredientDetails } from '@components';
 
 import { Routes, Route, useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { fetchIngredients } from '../../services/ingredientsSlice';
+import { fetchIngredients } from '../../services/slices and tests/ingredientsSlice';
 import { useDispatch, useSelector } from '../../services/store';
-import { getAuthChecked, getUser } from '../../services/authSlice';
+import {
+  getAuthChecked,
+  getUser
+} from '../../services/slices and tests/authSlice';
 import { ProtectedRoute } from '../protected-route';
 
 const App = () => {
