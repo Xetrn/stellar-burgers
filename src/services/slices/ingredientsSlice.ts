@@ -8,13 +8,13 @@ export const getIngredientsList = createAsyncThunk(
 );
 
 type TIngredientsState = {
-  ingredientsList: TIngredient[];
+  ingredients: TIngredient[];
   loading: boolean;
   error: string | null | undefined;
 };
 
-const initialState: TIngredientsState = {
-  ingredientsList: [],
+export const initialState: TIngredientsState = {
+  ingredients: [],
   loading: false,
   error: null
 };
@@ -26,7 +26,7 @@ export const ingredientsSlice = createSlice({
   selectors: {
     isLoadingSelector: (state) => state.loading,
     ingredientsStateSelector: (state) => state,
-    ingredientsSelector: (state) => state.ingredientsList
+    ingredientsSelector: (state) => state.ingredients
   },
   extraReducers: (builder) => {
     builder
@@ -36,7 +36,7 @@ export const ingredientsSlice = createSlice({
       })
       .addCase(getIngredientsList.fulfilled, (state, action) => {
         state.loading = false;
-        state.ingredientsList = action.payload;
+        state.ingredients = action.payload;
       })
       .addCase(getIngredientsList.pending, (state) => {
         state.loading = true;

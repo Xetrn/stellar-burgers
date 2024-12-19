@@ -8,7 +8,7 @@ import { Preloader } from '@ui';
 
 export const BurgerIngredients: FC = () => {
   const {
-    ingredientsList: ingredients,
+    ingredients: ingredients,
     loading,
     error
   } = useSelector(ingredientsStateSelector);

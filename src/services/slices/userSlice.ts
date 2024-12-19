@@ -35,7 +35,7 @@ export interface TUserState {
   error: string | undefined;
 }
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuthVerified: false,
   user: {
     email: '',
