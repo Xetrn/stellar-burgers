@@ -131,7 +131,7 @@ export const getOrderByNumberApi = (number: number) =>
     }
   }).then((res) => checkResponse<TOrderResponse>(res));
 
-export type TRegisterData = {
+type TRegisterData = {
   email: string;
   name: string;
   password: string;
@@ -233,3 +233,16 @@ export const logoutApi = () =>
       token: localStorage.getItem('refreshToken')
     })
   }).then((res) => checkResponse<TServerResponse<{}>>(res));
+
+export type {
+  TUserResponse,
+  TAuthResponse,
+  TRegisterData,
+  TOrderResponse,
+  TNewOrderResponse,
+  TOrdersResponse,
+  TFeedsResponse,
+  TIngredientsResponse,
+  TRefreshResponse,
+  TServerResponse
+};

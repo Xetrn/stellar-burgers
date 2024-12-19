@@ -1,11 +1,15 @@
-# x курс
-# Фамилия Имя Отчество
+# 3 курс
+# Дистель Тимур Маратович
 
 # Проектная работа 11-го спринта
 
-[Макет](<https://www.figma.com/file/vIywAvqfkOIRWGOkfOnReY/React-Fullstack_-Проектные-задачи-(3-месяца)_external_link?type=design&node-id=0-1&mode=design>)
+[Макет](<https://www.figma.com/file/vIywAvqfkOIRWGOkfOnReY/React-Fullstack_-Проектные-задачи-(3-месяца)_external_link?type=design&node-id=0-1&mode=design>) / [Чеклист](https://www.notion.so/praktikum/0527c10b723d4873aa75686bad54b32e?pvs=4)
 
-[Чеклист](https://www.notion.so/praktikum/0527c10b723d4873aa75686bad54b32e?pvs=4)
+## Результаты тестирования
+
+![Результаты cypress](/screenshot/cypress.png)
+
+![Результаты jest](/screenshot/jest.png)
 
 ## Этапы работы:
 
