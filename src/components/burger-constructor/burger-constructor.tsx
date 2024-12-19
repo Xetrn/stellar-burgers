@@ -42,7 +42,7 @@ export const BurgerConstructor: FC = () => {
   const closeOrderModal = () => {
     dispatch(resetOrder());
     dispatch(resetConstructor());
-    navigate('/feed');
+    navigate('/');
   };
 
   const price = useMemo(
