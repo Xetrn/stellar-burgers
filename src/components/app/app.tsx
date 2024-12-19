@@ -19,12 +19,18 @@ import { AppHeader, OrderInfo, IngredientDetails, Modal } from '@components';
 import { useDispatch, useSelector } from '../../services/store';
 import { useEffect } from 'react';
 import { getCookie } from '../../utils/cookie';
-import { fetchUser, selectIsAuth } from '../../services/slices/user-slice';
+import {
+  fetchUser,
+  selectIsAuth
+} from '../../services/slices/user-slice/user-slice';
 import {
   fetchIngredients,
   selectIngredients
-} from '../../services/slices/ingredients-slice';
-import { fetchFeed, selectFeed } from '../../services/slices/feed-slice';
+} from '../../services/slices/ingredients-slice/ingredients-slice';
+import {
+  fetchFeed,
+  selectFeed
+} from '../../services/slices/feed-slice/feed-slice';
 import { ProtectedRoute } from '../routes/protected-routes';
 
 export const App = () => {

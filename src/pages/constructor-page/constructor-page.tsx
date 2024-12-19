@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from '../../services/store';
 import {
   fetchIngredients,
-  selectIngredients,
-} from '../../services/slices/ingredients-slice';
+  selectIngredients
+} from '../../services/slices/ingredients-slice/ingredients-slice';
 
 import styles from './constructor-page.module.css';
 
@@ -12,7 +12,6 @@ import { Preloader } from '../../components/ui';
 import { FC, useEffect } from 'react';
 
 export const ConstructorPage: FC = () => {
-  //const isIngredientsLoading = useSelector(selectIsLoading);
   const isIngredientsLoading = false;
   const ingredients = useSelector(selectIngredients);
   const dispatch = useDispatch();

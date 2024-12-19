@@ -5,7 +5,7 @@ import { useSelector } from '../../services/store';
 import {
   selectIngredients,
   selectIsLoading
-} from '../../services/slices/ingredients-slice';
+} from '../../services/slices/ingredients-slice/ingredients-slice';
 import { useParams } from 'react-router-dom';
 
 export const IngredientDetails: FC = () => {

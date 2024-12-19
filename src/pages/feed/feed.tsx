@@ -6,7 +6,7 @@ import {
   fetchFeed,
   selectFeed,
   selectIsLoading
-} from '../../services/slices/feed-slice';
+} from '../../services/slices/feed-slice/feed-slice';
 
 export const Feed: FC = () => {
   const dispatch = useDispatch();

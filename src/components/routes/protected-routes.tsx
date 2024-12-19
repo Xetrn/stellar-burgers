@@ -1,9 +1,7 @@
 import { ReactElement } from 'react';
 import { useSelector } from '../../services/store';
 import { Navigate, useLocation } from 'react-router-dom';
-import {
-  selectIsAuth
-} from '../../services/slices/user-slice';
+import { selectIsAuth } from '../../services/slices/user-slice/user-slice';
 
 type TProtectedRouteProps = {
   children: ReactElement;

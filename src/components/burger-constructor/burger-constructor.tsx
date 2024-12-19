@@ -3,12 +3,12 @@ import { TConstructorIngredient, TOrder } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
-import { selectUser } from '../../services/slices/user-slice';
+import { selectUser } from '../../services/slices/user-slice/user-slice';
 import {
   getBurgerConstructorState,
   selectIsLoading,
   sendOrder
-} from '../../services/slices/burger-constructor-slice';
+} from '../../services/slices/burger-constructor-slice/burger-constructor-slice';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
