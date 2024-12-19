@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-import { getFeedsApi } from '@api';
+import { getFeedsApi } from '../../utils/burger-api';
 import {
   onFulfilledGetAllFeeds,
   onPendingGetAllFeeds,
@@ -17,7 +17,7 @@ export interface TFeedsState {
   error: string | undefined;
 }
 
-const initialState: TFeedsState = {
+export const initialState: TFeedsState = {
   isLoadingGetFeeds: true,
   orders: [],
   total: 0,

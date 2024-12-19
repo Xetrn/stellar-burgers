@@ -4,7 +4,7 @@ import {
   logoutApi,
   registerUserApi,
   updateUserApi
-} from '@api';
+} from '../../utils/burger-api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import {
@@ -35,7 +35,7 @@ export interface TUserState {
   isLoading: boolean;
 }
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuth: false,
   user: {
     email: '',
@@ -69,9 +69,9 @@ export const userSlice = createSlice({
       .addCase(getUserRequest.fulfilled, onFulfilledGetUser)
       .addCase(getUserRequest.rejected, onRejectedGetUser);
     builder
+      .addCase(updateUser.pending, onPendingUpdateUser)
       .addCase(updateUser.fulfilled, onFulfilledUpdateUser)
-      .addCase(updateUser.rejected, onRejectedUpdateUser)
-      .addCase(updateUser.pending, onPendingUpdateUser);
+      .addCase(updateUser.rejected, onRejectedUpdateUser);
     builder.addCase(logout.fulfilled, onFulfilledLogout);
   }
 });

@@ -1,4 +1,4 @@
-import { orderBurgerApi } from '@api';
+import { orderBurgerApi } from '../../utils/burger-api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 import {
@@ -18,7 +18,7 @@ export interface TNewOrderState {
   error: string | undefined;
 }
 
-const initialState: TNewOrderState = {
+export const initialState: TNewOrderState = {
   isLoadingCreateOrder: false,
   orderModalData: null,
   error: undefined

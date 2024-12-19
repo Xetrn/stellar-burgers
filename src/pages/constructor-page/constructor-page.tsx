@@ -5,7 +5,7 @@ import styles from './constructor-page.module.css';
 import { BurgerConstructor, BurgerIngredients } from '@components';
 import { Preloader } from '@ui';
 import { FC } from 'react';
-import { getIsLoadingIngredients } from '../../services/slices/Ingredients';
+import { getIsLoadingIngredients } from '../../services/slices/ingredients';
 
 export const ConstructorPage: FC = () => {
   const isIngredientsLoading = useSelector(getIsLoadingIngredients);

@@ -7,7 +7,7 @@ import { TIngredient, TOrder } from '@utils-types';
 import { Preloader } from '@ui';
 import { OrderInfoUI } from '@ui';
 import { useSelector } from '../../services/store';
-import { getIngredients } from '../../services/slices/Ingredients';
+import { getIngredients } from '../../services/slices/ingredients';
 
 export const OrderInfo: FC = () => {
   const [orderData, setOrderData] = useState<TOrder>({

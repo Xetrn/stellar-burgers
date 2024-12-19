@@ -1,4 +1,4 @@
-import { TIngredientsState } from '../slices/Ingredients';
+import { TIngredientsState } from '../slices/ingredients';
 import { TIngredient } from '@utils-types';
 import { PayloadAction, SerializedError } from '@reduxjs/toolkit';
 

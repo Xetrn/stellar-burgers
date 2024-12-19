@@ -178,6 +178,7 @@ export const onRejectedUpdateUser = (
   >
 ) => {
   state.isAuth = false;
+  state.isLoading = false;
   state.error = action.error.message!;
 };
 

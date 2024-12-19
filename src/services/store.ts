@@ -6,7 +6,7 @@ import {
 import { configureStore } from '@reduxjs/toolkit';
 
 import { constructorSlice } from './slices/constructor';
-import { ingredientsSlice } from './slices/Ingredients';
+import { ingredientsSlice } from './slices/ingredients';
 import { feedsSlice } from './slices/feeds';
 import { createOrderSlice } from './slices/create-order';
 import { userSlice } from './slices/user';
