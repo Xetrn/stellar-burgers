@@ -20,54 +20,54 @@ export const fetchOrderByNumber = createAsyncThunk(
 
 type TOrdersState = {
   orders: TOrder[];
-  loading: boolean;
+  isLoading: boolean;
 };
 
-const initialState: TOrdersState = {
+export const initialState: TOrdersState = {
   orders: [],
-  loading: false
+  isLoading: false
 };
 
-const ordersSlice = createSlice({
+export const ordersSlice = createSlice({
   name: 'orders',
   initialState,
   selectors: {
     selectOrders: (state) => state.orders,
-    selectOrderLoading: (state) => state.loading
+    selectOrderLoading: (state) => state.isLoading
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       // createOrder
       .addCase(createOrder.pending, (state) => {
-        state.loading = true;
+        state.isLoading = true;
       })
       .addCase(createOrder.fulfilled, (state) => {
-        state.loading = false;
+        state.isLoading = false;
       })
-      .addCase(createOrder.rejected, (state, action) => {
-        state.loading = false;
+      .addCase(createOrder.rejected, (state) => {
+        state.isLoading = false;
       })
       // fetchOrders
       .addCase(fetchOrders.pending, (state) => {
-        state.loading = true;
+        state.isLoading = true;
       })
       .addCase(fetchOrders.fulfilled, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
         state.orders = action.payload;
       })
-      .addCase(fetchOrders.rejected, (state, action) => {
-        state.loading = false;
+      .addCase(fetchOrders.rejected, (state) => {
+        state.isLoading = false;
       })
       // fetchOrderByNumber
       .addCase(fetchOrderByNumber.pending, (state) => {
-        state.loading = true;
+        state.isLoading = true;
       })
       .addCase(fetchOrderByNumber.fulfilled, (state) => {
-        state.loading = false;
+        state.isLoading = false;
       })
-      .addCase(fetchOrderByNumber.rejected, (state, action) => {
-        state.loading = false;
+      .addCase(fetchOrderByNumber.rejected, (state) => {
+        state.isLoading = false;
       });
   }
 });

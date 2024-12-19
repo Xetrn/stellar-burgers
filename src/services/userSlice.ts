@@ -17,7 +17,7 @@ type TUserState = {
   isAuthChecked: boolean;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   user: null,
   error: null,
   isAuthChecked: false,
@@ -41,7 +41,7 @@ export const registerUser = createAsyncThunk(
 );
 export const loginUser = createAsyncThunk('user/loginUser', loginUserApi);
 
-const userSlice = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState,
   selectors: {

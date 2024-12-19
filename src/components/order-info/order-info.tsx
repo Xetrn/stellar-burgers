@@ -4,10 +4,7 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useSelector, useDispatch } from '../../services/store';
-import {
-  selectIngredients,
-  fetchIngredients
-} from '../../services/ingredientsSlice';
+import { selectIngredients } from '../../services/ingredientsSlice';
 import { fetchOrderByNumber } from '../../services/ordersSlice';
 import { TOrder } from '@utils-types';
 
@@ -23,10 +20,6 @@ export const OrderInfo: FC = () => {
       .then((orderData) => {
         setOrderData(orderData.orders[0]);
       });
-
-    if (!ingredients.length) {
-      dispatch(fetchIngredients());
-    }
   }, [ingredients, number]);
 
   const orderInfo = useMemo(() => {

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from '../../services/store';
 import { OrdersListProps } from './type';
 import { OrdersListUI, Preloader } from '@ui';
 import {
-  fetchIngredients,
   selectIngredientsLoading,
   selectIngredients
 } from '../../services/ingredientsSlice';
@@ -22,12 +21,6 @@ export const OrdersList: FC<OrdersListProps> = memo(({ orders }) => {
   const orderByDate = [...orders].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
-
-  useEffect(() => {
-    if (!ingredients.length) {
-      dispatch(fetchIngredients());
-    }
-  }, [ingredients]);
 
   if (isLoading) {
     return <Preloader />;

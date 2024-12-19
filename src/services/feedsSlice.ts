@@ -8,39 +8,39 @@ type TFeedsState = {
   orders: TOrder[];
   total: number;
   totalToday: number;
-  loading: boolean;
+  isLoading: boolean;
 };
 
-const initialState: TFeedsState = {
+export const initialState: TFeedsState = {
   orders: [],
   total: 0,
   totalToday: 0,
-  loading: false
+  isLoading: false
 };
 
-const feedsSlice = createSlice({
+export const feedsSlice = createSlice({
   name: 'feeds',
   initialState,
   selectors: {
     selectFeeds: (state) => state.orders,
     selectTotal: (state) => state.total,
     selectTotalToday: (state) => state.totalToday,
-    selectFeedLoading: (state) => state.loading
+    selectFeedLoading: (state) => state.isLoading
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchFeeds.pending, (state) => {
-        state.loading = true;
+        state.isLoading = true;
       })
       .addCase(fetchFeeds.fulfilled, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
         state.orders = action.payload.orders;
         state.total = action.payload.total;
         state.totalToday = action.payload.totalToday;
       })
       .addCase(fetchFeeds.rejected, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
       });
   }
 });

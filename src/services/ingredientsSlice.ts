@@ -13,12 +13,12 @@ type TIngredientsState = {
   isLoading: boolean;
 };
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   items: [],
   isLoading: false
 };
 
-const ingredientsSlice = createSlice({
+export const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
   selectors: {

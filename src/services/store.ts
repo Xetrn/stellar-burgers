@@ -11,7 +11,7 @@ import ordersReducer from './ordersSlice';
 import { combineReducers } from '@reduxjs/toolkit';
 import builderReducer from './builderSlice';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   user: userReducer,
   feeds: feedsReducer,
   ingredients: ingredientsReducer,

@@ -18,6 +18,7 @@ import { AppHeader } from '@components';
 import { fetchUser } from '../../services/userSlice';
 import { useEffect } from 'react';
 import { ProtectedRoute } from '../../utils/protected-route';
+import { fetchIngredients } from '../../services/ingredientsSlice';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchUser());
+    dispatch(fetchIngredients());
   }, []);
 
   const handleCloseModal = () => {
