@@ -1,21 +1,39 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/services/store';
+import { AppDispatch } from 'src/services/store';
+import { useDispatch } from 'react-redux';
+import { fetchOrderByNumber } from '../../services/slices/orderSlice';
+import { clearOrder } from '../../services/slices/orderSlice';
+import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const number = location.pathname.split('/')[2];
+  const dispatch: AppDispatch = useDispatch();
+  const orderData = useSelector(
+    (state: RootState) => state.order.orderModalData
+  );
+  const allIngredients = useSelector(
+    (state: RootState) => state.ingredients.ingredients
+  );
 
-  const ingredients: TIngredient[] = [];
+  useEffect(() => {
+    dispatch(fetchOrderByNumber(Number(number)));
+    if (!allIngredients.length) {
+      dispatch(fetchIngredients());
+    }
+    return () => {
+      dispatch(clearOrder());
+    };
+  }, [dispatch, number]);
+
+  const ingredients: TIngredient[] = orderData?.ingredients.map((id) =>
+    allIngredients.find((ingredient) => ingredient._id === id)
+  ) as TIngredient[];
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {

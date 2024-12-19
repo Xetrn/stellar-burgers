@@ -1,16 +1,19 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { AppDispatch, useDispatch, useSelector } from '../../services/store';
+import { RootState } from '../../services/store';
+import { updateUser } from '../../services/slices/userSlice';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const Profile: FC = () => {
   /** TODO: взять переменную из стора */
-  const user = {
-    name: '',
-    email: ''
-  };
+  const user = useSelector((state: RootState) => state.user.data);
+  const dispatch: AppDispatch = useDispatch();
 
   const [formValue, setFormValue] = useState({
-    name: user.name,
-    email: user.email,
+    name: user?.name || '',
+    email: user?.email || '',
     password: ''
   });
 
@@ -29,13 +32,25 @@ export const Profile: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+
+    const userData = {
+      name: formValue.name,
+      email: formValue.email,
+      ...(formValue.password && { password: formValue.password })
+    };
+    setFormValue({
+      ...userData,
+      password: ''
+    });
+
+    dispatch(updateUser(userData));
   };
 
   const handleCancel = (e: SyntheticEvent) => {
     e.preventDefault();
     setFormValue({
-      name: user.name,
-      email: user.email,
+      name: user?.name || '',
+      email: user?.email || '',
       password: ''
     });
   };
