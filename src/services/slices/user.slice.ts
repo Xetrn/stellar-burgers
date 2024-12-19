@@ -5,15 +5,27 @@ import {
   loginUserApi,
   getUserApi,
   updateUserApi,
-  logoutApi
+  logoutApi,
+  TRegisterData,
+  TLoginData
 } from '@api';
 import { deleteTokens, saveTokens } from '../../utils/tokens';
 
 export const fetchUser = createAsyncThunk('user/fetch', getUserApi);
-export const updateUser = createAsyncThunk('user/update', updateUserApi);
+export const updateUser = createAsyncThunk(
+  'user/update',
+  async (data: Partial<TRegisterData>) => updateUserApi(data)
+);
 
-export const register = createAsyncThunk('user/register', registerUserApi);
-export const login = createAsyncThunk('user/login', loginUserApi);
+export const register = createAsyncThunk(
+  'user/register',
+  async (data: TRegisterData) => registerUserApi(data)
+);
+
+export const login = createAsyncThunk('user/login', async (data: TLoginData) =>
+  loginUserApi(data)
+);
+
 export const logout = createAsyncThunk('user/logout', logoutApi);
 
 type TUserState = {

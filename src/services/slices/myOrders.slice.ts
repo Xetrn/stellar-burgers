@@ -10,13 +10,13 @@ export const fetchMyOrders = createAsyncThunk(
 type TMyOrdersState = {
   orders: TOrder[];
   loading: boolean;
-  error: boolean;
+  error: string | undefined | null;
 };
 
 const initialState: TMyOrdersState = {
   orders: [],
   loading: true,
-  error: false
+  error: null
 };
 
 export const myOrdersSlice = createSlice({
@@ -26,21 +26,21 @@ export const myOrdersSlice = createSlice({
   selectors: {
     getMyOrders: (state) => state.orders,
     getMyOrdersLoading: (state) => state.loading,
-    getMyOrdersError: (state) => state.loading
+    getMyOrdersError: (state) => state.error
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchMyOrders.pending, (state) => {
         state.loading = true;
-        state.error = false;
+        state.error = null;
       })
       .addCase(fetchMyOrders.fulfilled, (state, action) => {
         state.loading = false;
         state.orders = action.payload;
       })
-      .addCase(fetchMyOrders.rejected, (state) => {
+      .addCase(fetchMyOrders.rejected, (state, action) => {
         state.loading = false;
-        state.error = true;
+        state.error = action.error.message;
       });
   }
 });

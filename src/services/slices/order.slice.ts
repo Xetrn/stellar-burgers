@@ -2,8 +2,14 @@ import { getOrderByNumberApi, orderBurgerApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
-export const createNewOrder = createAsyncThunk('order/create', orderBurgerApi);
-export const fetchOrder = createAsyncThunk('order/fetch', getOrderByNumberApi);
+export const createNewOrder = createAsyncThunk(
+  'order/create',
+  async (data: string[]) => await orderBurgerApi(data)
+);
+export const fetchOrder = createAsyncThunk(
+  'order/fetch',
+  async (number: number) => await getOrderByNumberApi(number)
+);
 
 type TNewOrderState = {
   orderModalData: TOrder | null;

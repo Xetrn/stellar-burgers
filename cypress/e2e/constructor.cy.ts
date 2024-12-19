@@ -70,10 +70,12 @@ describe('E2E тесты конструктора бургера', () => {
         .should('be.visible')
         .contains('Мясо бессмертных моллюсков Protostomia');
     });
+
     it('Модальное окно закрывается по клику на крестик', () => {
       cy.get(modalCloseBtn).click();
       cy.get(modalContent).should('not.exist');
     });
+
     it('Модальное окна закрывается по клику на оверлей', () => {
       cy.get(modalOverlay).click({ force: true });
       cy.get(modalContent).should('not.exist');
