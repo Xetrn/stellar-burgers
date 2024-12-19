@@ -14,7 +14,7 @@ type IngredientsState = {
     sauces: TIngredient[];
 };
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
     isLoading: true,
     isError: false,
     ingredients: [],

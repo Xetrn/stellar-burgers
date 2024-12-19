@@ -12,7 +12,7 @@ type UserState = {
 
 const initialState: UserState = {
     user: undefined,
-    isAuth: !!getCookie('accessToken'),
+    isAuth: false,
     error: ''
 };
 

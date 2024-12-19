@@ -10,7 +10,7 @@ type FeedsState = TOrdersData & {
     isError: boolean;
 };
 
-const initialState: FeedsState = {
+export const initialState: FeedsState = {
     isLoading: false,
     isError: false,
     orders: [],
