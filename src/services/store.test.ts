@@ -12,12 +12,43 @@ describe('Проверка состояния по умолчанию всех �
     const initialState = store.getState();
 
     expect(initialState).toEqual({
-      ingredients: expect.any(Object),
-      orders: expect.any(Object),
-      burgerConstructor: expect.any(Object),
-      order: expect.any(Object),
-      user: expect.any(Object),
-      userOrder: expect.any(Object),
+      ingredients: {
+        ingredients: [],
+        loading: false,
+        error: null,
+      },
+      orders: {
+        feeds: {
+          orders: [],
+          total: 0,
+          totalToday: 0,
+        },
+        loading: false,
+        error: null,
+      },
+      burgerConstructor: {
+        bun: null,
+        ingredients: [],
+      },
+      order: {
+        orderData: [],
+        orderModalData: null,
+        orderError: null,
+        orderRequest: false,
+      },
+      user: {
+        data: null,
+        isAuthenticated: false,
+        isAuthChecked: false,
+        loginUserError: null,
+        loginUserRequest: false,
+        registerUserError: null,
+        registerUserRequest: false,
+      },
+      userOrder: {
+        orders: [],
+        isLoading: true,
+      },
     });
   });
 
@@ -57,7 +88,7 @@ describe('Проверка состояния по умолчанию всех �
       orderData: [],
       orderModalData: null,
       orderError: null,
-      orderRequest: false
+      orderRequest: false,
     });
   });
 
