@@ -1,19 +1,19 @@
 import { FC, useMemo, useEffect } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { useDispatch, useSelector } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store/store';
 import {
   clearIngredients,
   getConstructorItems
-} from '../../services/burgerConstructorSlice';
+} from '../../services/slices/burgerConstructorSlice/burgerConstructorSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { UserSelector } from '../../services/userSlice';
+import { UserSelector } from '../../services/slices/userSlice/userSlice';
 import {
   clearOrder,
   orderDataSelector,
   orderRequestSelector,
   submitOrder
-} from '../../services/orderSlice';
+} from '../../services/slices/orderSlice/orderSlice';
 
 export const BurgerConstructor: FC = () => {
   const orderRequest = useSelector(orderRequestSelector);
