@@ -1,4 +1,8 @@
-import { getUserApi, refreshToken, updateUserApi } from '@api';
+import {
+  getUserApi,
+  refreshToken,
+  updateUserApi
+} from '../../utils/burger-api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../utils/cookie'; //не работает через src/../../

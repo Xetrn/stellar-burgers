@@ -5,7 +5,7 @@ import {
   FeedReducer,
   IngredientReducer,
   UserReducer
-} from '@slices';
+} from './slices';
 
 const store = configureStore({
   reducer: {

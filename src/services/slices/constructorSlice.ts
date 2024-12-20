@@ -43,7 +43,9 @@ const ConstructorSlice = createSlice({
         );
     },
     clearConstructor(state) {
-      state = initialState;
+      state.constructorItems = initialState.constructorItems;
+      state.orderRequest = initialState.orderRequest;
+      state.orderModalData = initialState.orderModalData;
     },
     setOrderRequest(state, action: PayloadAction<boolean>) {
       state.orderRequest = action.payload;
