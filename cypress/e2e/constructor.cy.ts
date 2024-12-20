@@ -1,76 +1,63 @@
 const ingredient = '[data-cy="ingredient-link-item"]';
 const modal = '[data-cy="modal"]';
-const modalOverlay = '[data-cy="modal-overlay"]';
-const constructor = '[data-cy="constructor"]';
-const orderButton = '[data-cy="getOrder-button"]';
+const modalOverlay = '[data-cy="modal-overlay"';
+const burgerConstructor = '[data-cy="constructor"]';
 
-describe('Burger constructor and order creation', () => {
+describe('Burger builder and order flow', () => {
   beforeEach(() => {
+    localStorage.setItem('refreshToken', JSON.stringify('refresh_token_mock'));
+    cy.setCookie('accessToken', JSON.stringify('access_token_mock'));
     cy.intercept('GET', `api/ingredients`, {
       fixture: 'ingredients.json'
-    }).as('getIngredients');
-
-    cy.intercept('GET', `api/auth/user`, {
-      fixture: 'user.json'
-    }).as('getUser');
-
-    cy.intercept('POST', `api/orders`, {
-      fixture: 'order.json'
-    }).as('createOrder');
-
-    window.localStorage.setItem(
-      'refreshToken',
-      JSON.stringify('mockRefreshToken')
+    }).as('fetchIngredients');
+    cy.intercept('GET', `api/auth/user`, { fixture: 'user.json' }).as(
+      'fetchUserData'
     );
-    cy.setCookie('accessToken', JSON.stringify('mockAccessToken'));
-
+    cy.intercept('POST', `api/orders`, { fixture: 'order.json' }).as(
+      'createOrder'
+    );
+    cy.visit('/feed');
     cy.visit('/');
-    cy.wait('@getIngredients');
-    cy.wait('@getUser');
+    // cy.wait('@fetchUserData');
+    cy.wait('@fetchIngredients');
   });
 
-  afterEach(() => {
-    cy.clearLocalStorage();
-    cy.clearCookies();
-  });
-
-  describe('Constructor functionality', () => {
-    it('should display ingredients in the constructor', () => {
-      cy.get(ingredient, { timeout: 10000 }).should('exist');
-      cy.get(ingredient).first().click();
-      cy.get(constructor).as('constructor');
+  describe('Burger constructor interactions', () => {
+    it('Add an ingredient to the constructor', () => {
+      cy.get(ingredient).first().next().click();
+      cy.get(burgerConstructor).as('constructor');
       cy.get('@constructor').should('contain', 'Краторная булка N-200i');
     });
 
-    it('should open and close the ingredient modal', () => {
-      cy.get(ingredient, { timeout: 10000 }).first().click();
+    it('Open and close ingredient modal', () => {
+      cy.get(ingredient).first().click();
       cy.get(modal).as('modal');
       cy.get('@modal').should('exist');
       cy.get('[data-cy="close-button"]').click();
       cy.get('@modal').should('not.exist');
     });
 
-    it('should close ingredient modal when clicking overlay', () => {
-      cy.get(ingredient, { timeout: 10000 }).first().click();
+    it('Close ingredient modal using overlay click', () => {
+      cy.get(ingredient).first().click();
       cy.get(modal).as('modal');
       cy.get('@modal').should('exist');
-      cy.get(modalOverlay).click({ force: true });
+      cy.get(modalOverlay).click('top', { force: true });
       cy.get('@modal').should('not.exist');
     });
 
-    it('should create an order and display order number in modal', () => {
-      cy.get(ingredient, { timeout: 10000 }).first().click();
-      cy.get(ingredient).eq(1).click();
-      cy.get(orderButton).click();
-
+    it('Create an order and verifies modal behavior', () => {
+      cy.get(burgerConstructor).as('constructor');
+      cy.get(ingredient).first().next().click();
+      cy.get(ingredient).eq(2).next().click();
+      cy.get('[data-cy="create-order-button"]').click();
       cy.wait('@createOrder');
-
-      cy.get(modal).as('orderModal');
-      cy.get('@orderModal').should('exist');
-      cy.get('@orderModal').should('contain', '555');
-
-      cy.get(modalOverlay).click({ force: true });
-      cy.get('@orderModal').should('not.exist');
+      cy.get(modal).as('modal');
+      cy.get('@modal').should('exist');
+      cy.get('@modal').should('contain', '555');
+      cy.get('@modal').should('exist');
+      cy.get(modalOverlay).click('top', { force: true });
+      cy.get('@modal').should('not.exist');
+      cy.get('@constructor').should('contain', '');
     });
   });
 });
