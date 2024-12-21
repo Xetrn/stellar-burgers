@@ -13,7 +13,7 @@ export interface TNewOrderState {
   orderErrorMessage: string | undefined;
 }
 
-const initialOrderState: TNewOrderState = {
+export const initialState: TNewOrderState = {
   isRequestInProgress: false,
   orderDetails: null,
   orderErrorMessage: undefined
@@ -21,9 +21,9 @@ const initialOrderState: TNewOrderState = {
 
 export const createOrderSlice = createSlice({
   name: 'newOrder',
-  initialState: initialOrderState,
+  initialState: initialState,
   reducers: {
-    resetOrderState: (state) => (state = initialOrderState)
+    resetOrderState: (state) => (state = initialState)
   },
   selectors: {
     selectOrderDetails: (state) => state.orderDetails,

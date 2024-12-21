@@ -15,18 +15,18 @@ export const apiGetUser = createAsyncThunk('user/getUser', getUserApi);
 export const updateUser = createAsyncThunk('user/update', updateUserApi);
 
 export interface TUserState {
-  isAuthenticated: boolean;
-  currentUser: TUser;
-  authErrorMessage: string | undefined;
+  isAuthVerified: boolean;
+  user: TUser;
+  error: string | undefined;
 }
 
-const initialState: TUserState = {
-  isAuthenticated: false,
-  currentUser: {
+export const initialState: TUserState = {
+  isAuthVerified: false,
+  user: {
     email: '',
     name: ''
   },
-  authErrorMessage: ''
+  error: ''
 };
 
 export const userSlice = createSlice({
@@ -34,62 +34,62 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    selectUser: (state) => state.currentUser,
-    selectUserName: (state) => state.currentUser.name,
-    selectAuthStatus: (state) => state.isAuthenticated,
-    selectAuthError: (state) => state.authErrorMessage
+    selectUser: (state) => state.user,
+    selectUserName: (state) => state.user.name,
+    selectAuthStatus: (state) => state.isAuthVerified,
+    selectAuthError: (state) => state.error
   },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.isAuthenticated = true;
-        state.currentUser = action.payload.user;
-        state.authErrorMessage = '';
+        state.isAuthVerified = true;
+        state.user = action.payload.user;
+        state.error = '';
       })
       .addCase(registerUser.rejected, (state, action) => {
-        state.authErrorMessage = action.error.message;
+        state.error = action.error.message;
       })
       .addCase(registerUser.pending, (state) => {
-        state.authErrorMessage = '';
+        state.error = '';
       });
     builder
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.isAuthenticated = true;
-        state.currentUser = action.payload.user;
-        state.authErrorMessage = '';
+        state.isAuthVerified = true;
+        state.user = action.payload.user;
+        state.error = '';
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.isAuthenticated = false;
-        state.authErrorMessage = action.error.message;
+        state.isAuthVerified = false;
+        state.error = action.error.message;
       })
       .addCase(loginUser.pending, (state) => {
-        state.isAuthenticated = false;
-        state.authErrorMessage = '';
+        state.isAuthVerified = false;
+        state.error = '';
       });
     builder
       .addCase(apiGetUser.fulfilled, (state, action) => {
-        state.isAuthenticated = true;
-        state.currentUser = action.payload.user;
+        state.isAuthVerified = true;
+        state.user = action.payload.user;
       })
       .addCase(apiGetUser.rejected, (state, action) => {
-        state.isAuthenticated = false;
-        state.authErrorMessage = action.error.message!;
+        state.isAuthVerified = false;
+        state.error = action.error.message!;
       });
     builder
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.isAuthenticated = true;
-        state.currentUser = action.payload.user;
+        state.isAuthVerified = true;
+        state.user = action.payload.user;
       })
       .addCase(updateUser.rejected, (state, action) => {
-        state.isAuthenticated = false;
-        state.authErrorMessage = action.error.message!;
+        state.isAuthVerified = false;
+        state.error = action.error.message!;
       })
       .addCase(updateUser.pending, (state) => {
-        state.authErrorMessage = '';
+        state.error = '';
       });
     builder.addCase(logOutUser.fulfilled, (state) => {
-      state.isAuthenticated = false;
-      state.currentUser = { email: '', name: '' };
+      state.isAuthVerified = false;
+      state.user = { email: '', name: '' };
     });
   }
 });

@@ -1,52 +1,52 @@
 import { TOrder } from '@utils-types';
 import { getFeedsApi } from '@api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const getFeeds = createAsyncThunk('orders/getFeeds', getFeedsApi);
 
 export interface TFeedsState {
-  feedOrders: Array<TOrder>;
-  totalOrders: number;
-  totalOrdersToday: number;
-  isLoading: boolean;
-  errorMessage: string | null | undefined;
+  orders: Array<TOrder>;
+  total: number;
+  totalToday: number;
+  loading: boolean;
+  error: string | null | undefined;
 }
 
-const initialFeedState: TFeedsState = {
-  feedOrders: [],
-  totalOrders: 0,
-  totalOrdersToday: 0,
-  isLoading: true,
-  errorMessage: null
+export const initialState: TFeedsState = {
+  orders: [],
+  total: 0,
+  totalToday: 0,
+  loading: true,
+  error: null
 };
 
 export const feedsSlice = createSlice({
   name: 'feeds',
-  initialState: initialFeedState,
+  initialState: initialState,
   reducers: {},
   selectors: {
-    selectFeedOrders: (state) => state.feedOrders,
-    selectTotalOrders: (state) => state.totalOrders,
-    selectTotalOrdersToday: (state) => state.totalOrdersToday
+    selectFeedOrders: (state) => state.orders,
+    selectTotalOrders: (state) => state.total,
+    selectTotalOrdersToday: (state) => state.totalToday
   },
   extraReducers: (builder) => {
     builder
       .addCase(getFeeds.fulfilled, (state, action) => {
-        state.feedOrders = action.payload.orders;
-        state.totalOrders = action.payload.total;
-        state.totalOrdersToday = action.payload.totalToday;
-        state.isLoading = false;
+        state.orders = action.payload.orders;
+        state.total = action.payload.total;
+        state.totalToday = action.payload.totalToday;
+        state.loading = false;
       })
       .addCase(getFeeds.rejected, (state, action) => {
-        state.feedOrders = [];
-        state.totalOrders = 0;
-        state.totalOrdersToday = 0;
-        state.isLoading = false;
-        state.errorMessage = action.error.message;
+        state.orders = [];
+        state.total = 0;
+        state.totalToday = 0;
+        state.loading = false;
+        state.error = action.error.message;
       })
       .addCase(getFeeds.pending, (state) => {
-        state.isLoading = true;
-        state.errorMessage = undefined;
+        state.loading = true;
+        state.error = undefined;
       });
   }
 });

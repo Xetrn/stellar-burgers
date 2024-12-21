@@ -4,7 +4,7 @@ const selectors = {
   burgerConstructor: '[data-cy="constructor"]',
   ingredient: '[data-cy="ingredient-link-item"]',
   closeButton: '[data-cy="close-button"]',
-  createOrderButton: '[data-cy="create-order-button"]',
+  createOrderButton: '[data-cy="create-order-button"]'
 };
 
 describe('Конструктор бургера и процесс оформления заказа', () => {
@@ -13,9 +13,24 @@ describe('Конструктор бургера и процесс оформле
     cy.setCookie('accessToken', JSON.stringify('access_token_mock'));
 
     const apiEndpoints = [
-      { method: 'GET', url: 'api/ingredients', fixture: 'ingredients.json', alias: 'fetchIngredients' },
-      { method: 'GET', url: 'api/auth/user', fixture: 'user.json', alias: 'fetchUserData' },
-      { method: 'POST', url: 'api/orders', fixture: 'order.json', alias: 'createOrder' }
+      {
+        method: 'GET',
+        url: 'api/ingredients',
+        fixture: 'ingredients.json',
+        alias: 'fetchIngredients'
+      },
+      {
+        method: 'GET',
+        url: 'api/auth/user',
+        fixture: 'user.json',
+        alias: 'fetchUserData'
+      },
+      {
+        method: 'POST',
+        url: 'api/orders',
+        fixture: 'order.json',
+        alias: 'createOrder'
+      }
     ];
 
     apiEndpoints.forEach(({ method, url, fixture, alias }) => {
@@ -29,7 +44,10 @@ describe('Конструктор бургера и процесс оформле
   describe('Взаимодействия с конструктором бургера', () => {
     it('Добавить ингредиент в конструктор', () => {
       cy.get(selectors.ingredient).first().next().click();
-      cy.get(selectors.burgerConstructor).should('contain', 'Краторная булка N-200i');
+      cy.get(selectors.burgerConstructor).should(
+        'contain',
+        'Краторная булка N-200i'
+      );
     });
 
     it('Открытие и закрытие модального окна ингредиента', () => {
